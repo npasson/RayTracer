@@ -8,12 +8,27 @@
 
 #include "../math/Ray3.h"
 
-class Plane : public Ray3 {
+class Plane {
 public:
-	Plane(
-			const Vec3& origin,
-			const Vec3& direction);
+	Plane(Vec3, Vec3); // normal form
 
+protected:
+	Vec3 _origin;
+public:
+	const Vec3&
+	getOrigin() const;
+
+	void
+	setOrigin(const Vec3& origin);
+
+	const Vec3&
+	getNormal() const;
+
+	void
+	setNormal(const Vec3& normal);
+
+protected:
+	Vec3 _normal;
 };
 
 
