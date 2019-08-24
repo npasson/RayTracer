@@ -95,11 +95,15 @@ namespace Debug {
 				red   = 0.8;
 				green = 0.3;
 				blue  = 0.2;
-			} else {
+			} else {/*
 				std::uniform_real_distribution<double> dist(0.0, 1.0);
 				red   = dist(mt);
 				green = dist(mt);
-				blue  = dist(mt);
+				blue  = dist(mt);*/
+
+				red   = 0.8;
+				green = 0.3;
+				blue  = 0.2;
 			}
 
 			std::cout << "Creating sun with color " << Color({red, green, blue}) << "\n";

@@ -94,6 +94,6 @@ std::ostream&
 operator<<(
 		std::ostream& lhs,
 		Vec3 rhs) {
-	lhs << "(" << rhs._x << "," << rhs._y << "," << rhs._z << ")";
+	lhs << "{" << rhs._x << "," << rhs._y << "," << rhs._z << "}";
 	return lhs;
 }

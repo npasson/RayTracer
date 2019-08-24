@@ -12,9 +12,13 @@
 int
 main() {
 	Debug::Presets::untie_io();
-	auto mt = Debug::Presets::get_rand_seed();
 
-	Debug::Tests::testBitmapGeneration(&mt);
+	Camera& c = Camera::getInstance();
+
+	c.forEachPixel([](Ray3 ray, uint16_t x, uint16_t y) -> Color {
+		std::cout << ray << std::endl;
+		return {0,0,0};
+	});
 }
 
 

@@ -57,10 +57,12 @@ std::ostream&
 operator<<(
 		std::ostream& lhs,
 		Ray3 rhs) {
-	lhs << "{R"
-	    << rhs.getOrigin()
-	    << "+x*" << rhs.getDirection()
-	    << "(d" << rhs.getDistance() << ")}";
+	lhs //<< "{R"
+	    //<< rhs.getOrigin()
+	    //<< "+x*"
+	    << rhs.getDirection()
+	    //<< "(d" << rhs.getDistance() << ")}";
+	    << ",";
 	return lhs;
 }
 

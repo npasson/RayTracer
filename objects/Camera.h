@@ -20,23 +20,23 @@ private:
 
 	Ray3 _position;
 
-	uint16_t _xRes = 50;
-	uint16_t _yRes = 50;
+	uint16_t _xRes = 4;
+	uint16_t _yRes = 4;
 public:
 	void
 	forEachPixel(
-			Color (* callable)(
+			Color (* callback)(
 					Ray3,
 					uint16_t,
 					uint16_t));
 
-	const Ray3&
+	[[nodiscard]] const Ray3&
 	getPosition() const;
 
 	void
 	setPosition(const Ray3& position);
 
-	double
+	[[nodiscard]] double
 	getFov() const;
 
 	void
