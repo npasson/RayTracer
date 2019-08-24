@@ -5,7 +5,7 @@
 #ifndef RAYTRACING_DEFINES_H
 #define RAYTRACING_DEFINES_H
 
-#include <stdint.h>
+#include <cstdint>
 
 typedef uint16_t imageDimension_t;
 typedef uint8_t  byte_t;
