@@ -20,8 +20,8 @@ private:
 
 	Ray3 _position;
 
-	uint16_t _xRes = 1920;
-	uint16_t _yRes = 1080;
+	uint16_t _xRes = 50;
+	uint16_t _yRes = 50;
 public:
 	void
 	forEachPixel(
@@ -43,7 +43,34 @@ public:
 	setFov(double fov);
 
 private:
-	double _fov = 60;
+	double _fov = 90;
+
+	[[nodiscard]] double inline
+	getAspectRatio() const;
+
+	[[nodiscard]] double
+	getPixelNDCX(uint16_t) const;
+
+	[[nodiscard]] double
+	getPixelNDCY(uint16_t) const;
+
+	[[nodiscard]] double
+	getPixelScreenX(uint16_t) const;
+
+	[[nodiscard]] double
+	getPixelScreenY(uint16_t) const;
+
+	[[nodiscard]] double
+	getPixelCameraX(uint16_t) const;
+
+	[[nodiscard]] double
+	getPixelCameraY(uint16_t) const;
+
+	[[nodiscard]] Vec3
+	getPixelCoordinate(
+			uint16_t,
+			uint16_t) const;
+
 public:
 	Camera(Camera const&) = delete;
 

@@ -60,33 +60,49 @@ Camera::forEachPixel(
 			callable(pixel, x, y);
 		}
 	}
+}
 
-//	double verticalFov = ( static_cast<double>(_yRes) / _xRes ) * _fov;
-//	double horizontalFov = _fov;
-//
-//	Ray3 topLeft = this->_position;
-//	topLeft = topLeft.rotate(Ray3::Z, -( horizontalFov / 2 ));
-//
-//	std::cout << "Debug output: topLeft = " << topLeft << std::endl;
-//
-//	topLeft = topLeft.rotate(Ray3::UP, ( verticalFov / 2 )); // FIXME Not only Y, but X and Y combined somehow
-//
-//	std::cout << "Debug output: topLeft = " << topLeft << std::endl;
-//	std::cout << "Debug output: bottomRight = "
-//	          << topLeft.rotate(Ray3::Z, ( horizontalFov / 2 ))
-//	                    .rotate(Ray3::DOWN, ( verticalFov / 2 ))
-//	          << std::endl;
-//
-//
-//	Ray3 current{{0, 0, 0},
-//	             {0, 0, 0}};
-//
-//	for (uint16_t y = 0; y < _yRes; ++y) {
-//		for (uint16_t x = 0; x < _xRes; ++x) {
-//			current = topLeft.rotate(Ray3::Z, (( horizontalFov * x ) / _xRes ));
-//			current = current.rotate(Ray3::DOWN, (( verticalFov * y ) / _yRes ));
-//
-//			callable(current, x, y);
-//		}
-//	}
+double inline
+Camera::getAspectRatio() const {
+	return static_cast<double>(_xRes) / _yRes;
+}
+
+double
+Camera::getPixelNDCX(uint16_t px) const {
+	return ( static_cast<double>(px) + 0.5 ) / _xRes;
+}
+
+double
+Camera::getPixelNDCY(uint16_t px) const {
+	return ( static_cast<double>(px) + 0.5 ) / _yRes;
+}
+
+double
+Camera::getPixelScreenX(uint16_t px) const {
+	return ( 2.0 * getPixelNDCX(px)) - 1.0;
+}
+
+double
+Camera::getPixelScreenY(uint16_t) const {
+	return 1.0 - ( 2.0 * getPixelNDCY(px));
+}
+
+
+double
+Camera::getPixelCameraX(uint16_t px) const {
+	return ( 2 * getPixelScreenX(px) - 1 ) * getAspectRatio();
+}
+
+double
+Camera::getPixelCameraY(uint16_t px) const {
+	return 1 - ( 2 * getPixelScreenY(px));
+}
+
+Vec3
+Camera::getPixelCoordinate(
+		uint16_t x,
+		uint16_t y) const {
+	return {getPixelCameraX(x),
+	        getPixelCameraY(y),
+	        1};
 }
