@@ -27,8 +27,10 @@ namespace Debug {
 	namespace Tests {
 		void
 		testFourRotations() {
-			Ray3 test{{0, 0, 0},
-			          {1, 0, 0}};
+			Ray3 test{
+				{0, 0, 0},
+				{1, 0, 0}
+			};
 
 			std::cout << test << std::endl;
 
@@ -47,15 +49,15 @@ namespace Debug {
 
 		void
 		testMatrixMultiplication() {
-			Matrix m1(2,
-			          3,
-			          {{3, 2, 1},
-			           {1, 0, 2}});
-			Matrix m2(3,
-			          2,
-			          {{1, 2},
-			           {0, 1},
-			           {4, 0}});
+			Matrix m1(2, 3, {
+				{3, 2, 1},
+				{1, 0, 2}
+			});
+			Matrix m2(3, 2, {
+				{1, 2},
+				{0, 1},
+				{4, 0}
+			});
 
 			std::cout << "m1 = " << m1 << std::endl;
 			std::cout << "m2 = " << m2 << std::endl;
@@ -67,8 +69,10 @@ namespace Debug {
 
 			Camera& c = Camera::getInstance();
 
-			c.setPosition({{0, 0, 0},
-			               {1, 0, 0}});
+			c.setPosition({
+				              {0, 0, 0},
+				              {1, 0, 0}
+			              });
 
 			c.setFov(90);
 
@@ -109,17 +113,15 @@ namespace Debug {
 				blue  = 0.2;
 			}
 
-			std::cout << "Creating sun with color " << Color({red,
-			                                                  green,
-			                                                  blue}) << "\n";
+			std::cout << "Creating sun with color " << Color(
+				{red, green, blue}
+			) << "\n";
 
-			LightSource Sun = LightSource({100,
-			                               30,
-			                               0},
-			                              {red,
-			                               green,
-			                               blue},
-			                              10);
+			LightSource Sun = LightSource(
+				{100, 30, 0},
+				{red, green, blue},
+				10
+			);
 
 			int y, x;
 			for (y = 0; y < width; ++y) {

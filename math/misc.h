@@ -62,11 +62,14 @@ namespace rt_math {
 
 		Matrix rotated = rotationMatrix * directional;
 
-		Ray3 rotatedRay(ray.getOrigin(),
-		                {rotated.getData()[0][0],
-		                 rotated.getData()[1][0],
-		                 rotated.getData()[2][0]},
-		                ray.getDistance());
+		Ray3 rotatedRay(
+			ray.getOrigin(),
+			{
+				rotated.getData()[0][0],
+				rotated.getData()[1][0],
+				rotated.getData()[2][0]
+			},
+			ray.getDistance());
 
 		return rotatedRay;
 	}

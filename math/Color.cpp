@@ -34,12 +34,6 @@ Color::getBrightness() {
 
 Color
 Color::operator*(double rhs) const {
-	//auto temp = Color();
-	//temp.setRed(rhs * _red);
-	//temp.setGreen(rhs * _green);
-	//temp.setBlue(rhs * _blue);
-	//return temp;
-
 	return {rhs * _red,
 	        rhs * _green,
 	        rhs * _blue};
@@ -83,6 +77,11 @@ Color::setBlue(double blue) {
 std::ostream&
 operator<<(std::ostream& lhs,
            Color rhs) {
-	lhs << "(" << rhs._red << "," << rhs._green << "," << rhs._blue << ")";
+	lhs
+		<< "("
+		<< rhs._red << ","
+		<< rhs._green << ","
+		<< rhs._blue
+		<< ")";
 	return lhs;
 }

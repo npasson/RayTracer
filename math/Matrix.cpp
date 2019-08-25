@@ -43,7 +43,8 @@ Matrix::operator*(const Matrix& rhs) const {
 	for (uint8_t row = 0; row < this->_rows; ++row) {
 		for (uint8_t col = 0; col < rhs._cols; ++col) {
 			for (uint8_t i = 0; i < this->_cols; ++i) {
-				m._data[row][col] += ( this->_data[row][i] ) * ( rhs._data[i][col] );
+				m._data[row][col] += ( this->_data[row][i] )
+				                     * ( rhs._data[i][col] );
 			}
 		}
 	}
@@ -82,8 +83,9 @@ operator<<(std::ostream& lhs,
 }
 
 Matrix::Matrix(const std::vector<std::vector<double>>&& data)
-	: _rows(static_cast<uint8_t>(data.size())), _cols{static_cast<uint8_t>(data.front()
-	                                                                           .size())} {
+	: _rows(static_cast<uint8_t>(data.size())),
+	  _cols(static_cast<uint8_t>(data.front()
+	                                 .size())) {
 	this->_data = data;
 }
 

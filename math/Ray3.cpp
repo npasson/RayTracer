@@ -52,7 +52,11 @@ Ray3::setDistance(double distance) {
 std::ostream&
 operator<<(std::ostream& lhs,
            Ray3 rhs) {
-	lhs << "{R" << rhs.getOrigin() << "+x*" << rhs.getDirection() << "(d" << rhs.getDistance() << ")}";
+	lhs
+		<< "{R" << rhs.getOrigin()
+		<< "+x*" << rhs.getDirection()
+		<< "(d" << rhs.getDistance()
+		<< ")}";
 	return lhs;
 }
 
@@ -98,26 +102,36 @@ Ray3::rotate(Axes axis,
 			// taking into account how many degrees we're away from the lowest vector
 			// TODO rotations beyond completely down/up are not tested, stay away.
 
-			Ray3 rotatedRay(ray.getOrigin(),
-			                ((( 1 - percentageToStillRotate ) * ray.getDirection()) +
-			                 ( percentageToStillRotate * target )).getNormalize());
+			Ray3 rotatedRay(
+				ray.getOrigin(),
+				(
+					(
+						( 1 - percentageToStillRotate ) * ray.getDirection()
+					)
+					+ ( percentageToStillRotate * target )
+				).getNormalize());
 			return rotatedRay;
 		}
 	}
 
-	Matrix directional(Matrix::_t{{ray.getDirection()
-	                                  .getX()},
-	                              {ray.getDirection()
-	                                  .getY()},
-	                              {ray.getDirection()
-	                                  .getZ()}});
+	Matrix directional(Matrix::_t{
+		{ray.getDirection()
+		    .getX()},
+		{ray.getDirection()
+		    .getY()},
+		{ray.getDirection()
+		    .getZ()}
+	});
 
 	Matrix rotated = rotationMatrix * directional;
 
-	Ray3 rotatedRay(ray.getOrigin(),
-	                {rotated.getData()[0][0],
-	                 rotated.getData()[1][0],
-	                 rotated.getData()[2][0]});
+	Ray3 rotatedRay(
+		ray.getOrigin(),
+		{
+			rotated.getData()[0][0],
+			rotated.getData()[1][0],
+			rotated.getData()[2][0]
+		});
 
 	return rotatedRay;
 }

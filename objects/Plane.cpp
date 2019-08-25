@@ -10,9 +10,7 @@ Plane::Plane(Vec3 origin,
 	if (normal.getLength() == 0) {
 		// if normal is zero, make it point straight up
 		// TODO error out here
-		_normal = {0,
-		           0,
-		           1};
+		_normal = {0, 0, 1};
 	} else {
 		_normal = normal.getNormalize();
 	}

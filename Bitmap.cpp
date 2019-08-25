@@ -40,20 +40,10 @@ Bitmap::createBitmapFileHeader(uint16_t height,
                                uint16_t paddingSize) {
 	uint16_t fileSize = fileHeaderSize + infoHeaderSize + ( BYTES_PER_PIXEL * width + paddingSize ) * height;
 
-	static uint8_t fileHeader[] = {0,
-	                               0, /// signature
-	                               0,
-	                               0,
-	                               0,
-	                               0, /// image file size in bytes
-	                               0,
-	                               0,
-	                               0,
-	                               0, /// reserved
-	                               0,
-	                               0,
-	                               0,
-	                               0, /// start of pixel array
+	static uint8_t fileHeader[] = {0, 0, /// signature
+	                               0, 0, 0, 0, /// image file size in bytes
+	                               0, 0, 0, 0, /// reserved
+	                               0, 0, 0, 0, /// start of pixel array
 	};
 
 	fileHeader[0]  = (uint8_t) ( 'B' );
@@ -70,46 +60,17 @@ Bitmap::createBitmapFileHeader(uint16_t height,
 uint8_t*
 Bitmap::createBitmapInfoHeader(uint16_t height,
                                uint16_t width) {
-	static uint8_t infoHeader[] = {0,
-	                               0,
-	                               0,
-	                               0, /// header size
-	                               0,
-	                               0,
-	                               0,
-	                               0, /// image width
-	                               0,
-	                               0,
-	                               0,
-	                               0, /// image height
-	                               0,
-	                               0, /// number of color planes
-	                               0,
-	                               0, /// bits per pixel
-	                               0,
-	                               0,
-	                               0,
-	                               0, /// compression
-	                               0,
-	                               0,
-	                               0,
-	                               0, /// image size
-	                               0,
-	                               0,
-	                               0,
-	                               0, /// horizontal resolution
-	                               0,
-	                               0,
-	                               0,
-	                               0, /// vertical resolution
-	                               0,
-	                               0,
-	                               0,
-	                               0, /// colors in color table
-	                               0,
-	                               0,
-	                               0,
-	                               0, /// important color count
+	static uint8_t infoHeader[] = {0, 0, 0, 0, /// header size
+	                               0, 0, 0, 0, /// image width
+	                               0, 0, 0, 0, /// image height
+	                               0, 0, /// number of color planes
+	                               0, 0, /// bits per pixel
+	                               0, 0, 0, 0, /// compression
+	                               0, 0, 0, 0, /// image size
+	                               0, 0, 0, 0, /// horizontal resolution
+	                               0, 0, 0, 0, /// vertical resolution
+	                               0, 0, 0, 0, /// colors in color table
+	                               0, 0, 0, 0, /// important color count
 	};
 
 	infoHeader[0]  = (uint8_t) ( infoHeaderSize );

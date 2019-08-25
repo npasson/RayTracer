@@ -7,7 +7,9 @@
 LightSource::LightSource(const Point& location,
                          const Color& color,
                          double brightness)
-	: Point(location), _color(color), _brightness(brightness) {
+	: Point(location),
+	  _color(color),
+	  _brightness(brightness) {
 }
 
 void

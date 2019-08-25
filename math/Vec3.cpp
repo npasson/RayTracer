@@ -48,7 +48,10 @@ Vec3::setZ(double z) {
 
 double
 Vec3::getLength() const {
-	return std::sqrt(( _x * _x ) + ( _y * _y ) + ( _z * _z ));
+	return std::sqrt(( _x * _x )
+	                 + ( _y * _y )
+	                 + ( _z * _z )
+	);
 }
 
 Vec3
@@ -82,7 +85,15 @@ Vec3::angleInDegreesTo(Vec3 rhs) const {
 	// return arccos ( ----------- ) * -----
 	//                  |u| * |v|       PI
 
-	return acos(rt_math::deg2rad(( *this ) * rhs / ( this->getLength() * rhs.getLength()))) * 180.0 / M_PI;
+	return acos(
+		rt_math::deg2rad(
+			( *this ) * rhs
+			/ (
+				this->getLength()
+				* rhs.getLength()
+			)
+		)
+	) * 180.0 / M_PI;
 }
 
 Vec3
@@ -96,6 +107,11 @@ operator*(double lhs,
 std::ostream&
 operator<<(std::ostream& lhs,
            Vec3 rhs) {
-	lhs << "(" << rhs._x << "," << rhs._y << "," << rhs._z << ")";
+	lhs
+		<< "("
+		<< rhs._x << ","
+		<< rhs._y << ","
+		<< rhs._z
+		<< ")";
 	return lhs;
 }

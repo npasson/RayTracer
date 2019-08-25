@@ -13,13 +13,14 @@ Camera::Camera(Ray3 ray)
 
 Camera&
 Camera::getInstance() {
-	static Camera _instance({{0,
-	                          0,
-	                          0},
-	                         {1,
-	                          0,
-	                          0},
-	                         1});
+	static Camera _instance(
+		{
+			{0, 0, 0},
+			{1, 0, 0},
+			1
+		}
+	);
+
 	return _instance;
 }
 
@@ -53,8 +54,10 @@ Camera::forEachPixel(Color (* callback)(Ray3,
 
 	for (uint16_t x = 0; x < _xRes; ++x) {
 		for (uint16_t y = 0; y < _yRes; ++y) {
-			Ray3 pixelRay = {{origin},
-			                 getPixelCoordinate(x, y)};
+			Ray3 pixelRay = {
+				{origin},
+				getPixelCoordinate(x, y)
+			};
 
 			callback(pixelRay, x, y);
 		}
@@ -88,12 +91,15 @@ Camera::getPixelScreenY(uint16_t px) const {
 
 double
 Camera::getPixelCameraX(uint16_t px) const {
-	return ( 2 * getPixelScreenX(px) - 1 ) * getAspectRatio() * std::atan(rt_math::deg2rad(_fov / 2));
+	return ( 2 * getPixelScreenX(px) - 1 )
+	       * getAspectRatio()
+	       * std::atan(rt_math::deg2rad(_fov / 2));
 }
 
 double
 Camera::getPixelCameraY(uint16_t px) const {
-	return 1 - ( 2 * getPixelScreenY(px)) * std::atan(rt_math::deg2rad(_fov / 2));
+	return 1 - ( 2 * getPixelScreenY(px))
+	           * std::atan(rt_math::deg2rad(_fov / 2));
 }
 
 Vec3
