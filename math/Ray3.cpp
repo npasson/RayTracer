@@ -7,6 +7,8 @@
 #include "Ray3.h"
 #include "Matrix.h"
 #include "misc.h"
+#include "../objects/Solid.h"
+#include "../objects/Sphere.h"
 
 Ray3::Ray3(const Vec3& origin,
            const Vec3 direction,
@@ -134,4 +136,34 @@ Ray3::rotate(Axes axis,
 		});
 
 	return rotatedRay;
+}
+
+Point
+Ray3::getIntersect(const Solid& solid) {
+	if (solid.getType() == SPHERE) {
+		auto& s = dynamic_cast<const Sphere&>(solid);
+
+		Ray3 hypothenuse = Point(
+			this->_origin
+			    .getX(),
+			this->_origin
+			    .getY(),
+			this->_origin
+			    .getZ()
+		).getRayTo(
+			s.getPosition()
+		);
+
+		double angle = hypothenuse.getDirection()
+		                          .angleInDegreesTo(this->getDirection());
+
+		double distance = std::sin(rt_math::deg2rad(angle))
+		                  * hypothenuse._direction
+		                               .getLength();
+
+		if (distance < s.getRadius()) {
+			// HIT!
+		}
+	}
+
 }

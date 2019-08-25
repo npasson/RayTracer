@@ -7,6 +7,8 @@
 
 #include <ostream>
 #include "Vec3.h"
+#include "Point.h"
+#include "../objects/Solid.h"
 
 class Ray3 {
 public:
@@ -43,6 +45,9 @@ public:
 	void
 	setDistance(double distance);
 
+	Point
+	getIntersect(const Solid&);
+
 	friend std::ostream&
 	operator<<(std::ostream&,
 	           Ray3);
@@ -51,7 +56,6 @@ protected:
 	Vec3   _origin;
 	Vec3   _direction;
 	double _distance;
-
 };
 
 #endif //RAYTRACING_RAY3_H

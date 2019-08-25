@@ -11,6 +11,20 @@
 class Sphere : public Solid {
 private:
 	Point  _position;
+public:
+	const Point&
+	getPosition() const;
+
+	void
+	setPosition(const Point& position);
+
+	double
+	getRadius() const;
+
+	void
+	setRadius(double radius);
+
+private:
 	double _radius;
 public:
 	Sphere() = delete;
@@ -19,6 +33,8 @@ public:
 
 	Sphere(Point,
 	       double);
+
+	uint8_t getType() const override;
 };
 
 #endif //RAYTRACING_SPHERE_H
