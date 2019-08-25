@@ -10,9 +10,9 @@ main() {
 	Camera& c = Camera::getInstance();
 
 	LightSource sun{
+		{1, 0.5, 1},
 		{1, 1, 1},
-		{1, 1, 1},
-		4
+		3
 	};
 
 	LightSource red{
