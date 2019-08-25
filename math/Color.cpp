@@ -13,7 +13,6 @@ Color::Color() {
 }
 
 Color::Color(double brightness) {
-	brightness = rt_math::clamp(brightness, 0, 1);
 	this->_red   = brightness;
 	this->_green = brightness;
 	this->_blue  = brightness;
@@ -22,9 +21,9 @@ Color::Color(double brightness) {
 Color::Color(double r,
              double g,
              double b) {
-	this->_red   = rt_math::clamp(r, 0, 1);
-	this->_green = rt_math::clamp(g, 0, 1);
-	this->_blue  = rt_math::clamp(b, 0, 1);
+	this->_red   = r;
+	this->_green = g;
+	this->_blue  = b;
 }
 
 double

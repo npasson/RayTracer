@@ -66,9 +66,9 @@ Camera::forEachPixel(Color (* callback)(Ray3,
 
 			Color c = callback(pixelRay, x, y);
 
-			image[x][y][Bitmap::RED]   = static_cast<uint8_t>(c.getRed() * 255 );
-			image[x][y][Bitmap::GREEN] = static_cast<uint8_t>(c.getGreen() * 255 );
-			image[x][y][Bitmap::BLUE]  = static_cast<uint8_t>(c.getBlue() * 255 );
+			image[x][y][Bitmap::RED]   = static_cast<uint8_t>(rt_math::clamp(c.getRed(), 0, 1) * 255 );
+			image[x][y][Bitmap::GREEN] = static_cast<uint8_t>(rt_math::clamp(c.getGreen(), 0, 1) * 255 );
+			image[x][y][Bitmap::BLUE]  = static_cast<uint8_t>(rt_math::clamp(c.getBlue(), 0, 1) * 255 );
 		}
 	}
 
