@@ -48,8 +48,14 @@ public:
 	Vec3
 	operator+(Vec3) const;
 
+	Vec3
+	operator+(double) const;
+
 	double
 	operator*(Vec3) const;
+
+	Vec3
+	operator*(double) const;
 
 	double
 	angleInDegreesTo(Vec3) const;

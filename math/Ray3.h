@@ -50,6 +50,9 @@ public:
 	Point*
 	getIntersect(const Solid&);
 
+	Point
+	getEndPoint();
+
 	friend std::ostream&
 	operator<<(std::ostream&,
 	           Ray3);

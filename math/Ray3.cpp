@@ -138,6 +138,17 @@ Ray3::rotate(Axes axis,
 	return rotatedRay;
 }
 
+Point
+Ray3::getEndPoint() {
+	Vec3 end = this->_origin + ( this->_direction * this->_distance );
+
+	return {
+		end.getX(),
+		end.getY(),
+		end.getZ()
+	};
+}
+
 Point*
 Ray3::getIntersect(const Solid& solid) {
 	if (solid.getType() == SPHERE) {
@@ -155,6 +166,8 @@ Ray3::getIntersect(const Solid& solid) {
 		Ray3 hypothenuse = rayStartPoint.getRayTo(
 			s.getPosition()
 		);
+
+		double hypothenuseLength = rayStartPoint.getDistanceTo(s.getPosition());
 
 		std::cout << "Camera ray: " << *this << std::endl;
 		std::cout << "Object ray: " << hypothenuse << std::endl;
@@ -176,7 +189,7 @@ Ray3::getIntersect(const Solid& solid) {
 		//     /   | d
 		//    /   _|
 		//   /A__|_|
-		// r
+		// r    l
 		//
 		// d = sin(A) * h
 		//
@@ -185,18 +198,25 @@ Ray3::getIntersect(const Solid& solid) {
 
 		std::cout << "Sine: " << sine << std::endl;
 
-		double distance = sine * rayStartPoint.getDistanceTo(s.getPosition());
+		double distance = sine * hypothenuseLength;
 
 		if (distance < s.getRadius()) {
 			// HIT!
 			std::cout << "Hit with distance " << distance << std::endl;
-			return new Point{1, 1, 1};
 
-			double offset = std::sqrt(
-				(s.getRadius() * s.getRadius())
-				+ (distance * distance)
+			double length = std::sqrt(
+				( hypothenuseLength * hypothenuseLength )
+				- ( distance * distance )
 			);
 
+			double offset = std::sqrt(
+				( s.getRadius() * s.getRadius())
+				- ( distance * distance )
+			);
+
+			this->setDistance(length - offset);
+
+			return new Point(this->getEndPoint());
 
 		} else {
 			std::cout << "No hit, distance " << distance << std::endl;

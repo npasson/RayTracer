@@ -75,11 +75,25 @@ Vec3::operator+(Vec3 rhs) const {
 	        this->_z + rhs._z};
 }
 
+Vec3
+Vec3::operator+(double t) const {
+	return *this + ( this->getNormalize() * t );
+}
+
 double
 Vec3::operator*(Vec3 rhs) const {
 	return ( this->_x * rhs._x )
 	       + ( this->_y * rhs._y )
 	       + ( this->_z * rhs._z );
+}
+
+Vec3
+Vec3::operator*(double t) const {
+	return {
+		this->_x * t,
+		this->_y * t,
+		this->_z * t
+	};
 }
 
 double
