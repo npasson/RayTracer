@@ -8,10 +8,10 @@
 
 void
 Bitmap::saveImage(
-		byte_t* image,
-		imageDimension_t height,
-		imageDimension_t width,
-		const std::string& imageFileName) {
+	byte_t* image,
+	imageDimension_t height,
+	imageDimension_t width,
+	const std::string& imageFileName) {
 
 	byte_t   padding[3]  = {0, 0, 0};
 	uint16_t paddingSize = ( 4 - ( width * BYTES_PER_PIXEL ) % 4 ) % 4;
