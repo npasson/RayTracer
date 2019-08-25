@@ -56,7 +56,7 @@ Camera::forEachPixel(Color (* callback)(Ray3,
 		for (uint16_t y = 0; y < _yRes; ++y) {
 			Ray3 pixelRay = {
 				{origin},
-				getPixelCoordinate(x, y)
+				getPixelCoordinate(x, y).getNormalize()
 			};
 
 			callback(pixelRay, x, y);
@@ -69,43 +69,16 @@ Camera::getAspectRatio() const {
 	return static_cast<double>(_xRes) / _yRes;
 }
 
-double
-Camera::getPixelNDCX(uint16_t px) const {
-	return ( static_cast<double>(px) + 0.5 ) / _xRes;
-}
-
-double
-Camera::getPixelNDCY(uint16_t px) const {
-	return ( static_cast<double>(px) + 0.5 ) / _yRes;
-}
-
-double
-Camera::getPixelScreenX(uint16_t px) const {
-	return ( 2.0 * getPixelNDCX(px)) - 1.0;
-}
-
-double
-Camera::getPixelScreenY(uint16_t px) const {
-	return 1.0 - ( 2.0 * getPixelNDCY(px));
-}
-
-double
-Camera::getPixelCameraX(uint16_t px) const {
-	return ( 2 * getPixelScreenX(px) - 1 )
-	       * getAspectRatio()
-	       * std::atan(rt_math::deg2rad(_fov / 2));
-}
-
-double
-Camera::getPixelCameraY(uint16_t px) const {
-	return 1 - ( 2 * getPixelScreenY(px))
-	           * std::atan(rt_math::deg2rad(_fov / 2));
-}
-
 Vec3
 Camera::getPixelCoordinate(uint16_t x,
                            uint16_t y) const {
+
+	double scale = tan(rt_math::deg2rad(getFov() * 0.5));
+
+	double x_space = ( 2 * ( x + 0.5 ) / _xRes - 1 ) * getAspectRatio() * scale;
+	double y_space = ( 1 - 2 * ( y + 0.5 ) / _yRes ) * scale;
+
 	return {1,
-	        getPixelCameraX(x),
-	        getPixelCameraY(y)};
+	        x_space,
+	        y_space};
 }

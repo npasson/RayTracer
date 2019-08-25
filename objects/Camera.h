@@ -19,8 +19,8 @@ private:
 
 	Ray3 _position;
 
-	uint16_t _xRes = 4;
-	uint16_t _yRes = 4;
+	uint16_t _xRes = 10;
+	uint16_t _yRes = 10;
 public:
 	void
 	forEachPixel(Color (* callback)(Ray3,
