@@ -22,8 +22,8 @@ public:
 	static constexpr uint8_t BLUE            = 0;
 
 protected:
-	static constexpr int fileHeaderSize = 14;
-	static constexpr int infoHeaderSize = 40;
+	static constexpr uint8_t fileHeaderSize = 14;
+	static constexpr uint8_t infoHeaderSize = 40;
 
 	static uint8_t*
 	createBitmapFileHeader(uint16_t height,

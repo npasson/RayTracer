@@ -3,9 +3,7 @@
 //
 
 #include "Vec3.h"
-#include "misc.h"
 #include <cmath>
-#include <iostream>
 
 Vec3::Vec3()
 	: _x(0), _y(0), _z(0) {
