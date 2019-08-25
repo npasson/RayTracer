@@ -3,10 +3,12 @@
 //
 
 #include <cmath>
+#include <algorithm>
 #include "Camera.h"
 #include "../math/Color.h"
 #include "../math/misc.h"
 #include "../Bitmap.h"
+#include "LightSource.h"
 
 Camera::Camera(Ray3 ray)
 	: _position(ray) {
@@ -73,7 +75,9 @@ Camera::forEachPixel(Color (* callback)(Ray3,
 	std::string imageFileName = "bitmapImage4.bmp";
 
 	Bitmap::saveImage(reinterpret_cast<byte_t*>(image), _xRes, _yRes, imageFileName);
-	std::cout << "Generated!" << std::endl;
+
+	delete[] image;
+	IFDEBUG(std::cout << "Generated!" << std::endl;)
 }
 
 double inline
@@ -108,6 +112,56 @@ Camera::getXRes() const {
 uint16_t
 Camera::getYRes() const {
 	return _yRes;
+}
+
+void
+Camera::render() {
+	this->forEachPixel([](Ray3 ray,
+	                      uint16_t x,
+	                      uint16_t y) -> Color {
+		//std::cout << ray << std::endl;
+		auto solids = Solid::getSolids();
+
+		LightSource sun{
+			{1, 1, 1},
+			{1, 1, 1},
+			3
+		};
+
+		std::vector<Point> hits;
+
+		while (!solids.empty()) {
+			Solid* s = solids.front();
+			solids.pop();
+
+			Point* p = ray.getIntersect(*s);
+
+			if (p == nullptr) {
+				continue;
+			}
+
+			hits.push_back(*p);
+
+			delete p;
+
+		}
+
+		if (hits.empty()) {
+			return {0, 0, 0};
+		}
+
+		std::sort(hits.begin(),
+		          hits.end(),
+		          [&](Point lhs,
+		              Point rhs) -> bool {
+			          return Point(ray.getOrigin()).getDistanceTo(lhs)
+			                 < Point(ray.getOrigin()).getDistanceTo(rhs);
+		          });
+
+		Point p = hits.front();
+
+		return p.getBrightnessFromLightSource(sun);
+	});
 }
 
 //void

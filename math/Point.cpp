@@ -10,6 +10,11 @@ Point::Point()
 	: Vec3() {
 }
 
+Point::Point(Vec3 v)
+	:
+	Vec3(v) {
+}
+
 Point::Point(double x,
              double y,
              double z)
@@ -58,8 +63,8 @@ Point::getBrightnessFromLightSource(LightSource ls) const {
 	return (
 		(
 			ls.getColor()
-			/ std::sqrt(
-				this->getDistanceTo(ls.getPoint())
+			/ std::pow(
+				this->getDistanceTo(ls.getPoint()), 2
 			)
 		)
 		* ls.getBrightness()

@@ -29,6 +29,8 @@ public:
 	      double y,
 	      double z);
 
+	Point(Vec3);
+
 	double
 	getDistanceTo(Point) const;
 

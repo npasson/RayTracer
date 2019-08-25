@@ -10,6 +10,12 @@
 #define LIKELY(x)       __builtin_expect(static_cast<bool>(x),1)
 #define UNLIKELY(x)     __builtin_expect(static_cast<bool>(x),0)
 
+#ifdef DEBUG_OUTPUT
+	#define IFDEBUG(a) a
+#else
+	#define IFDEBUG(a)
+#endif
+
 typedef uint16_t imageDimension_t;
 
 typedef uint8_t  byte_t;

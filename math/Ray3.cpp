@@ -169,18 +169,18 @@ Ray3::getIntersect(const Solid& solid) {
 
 		double hypothenuseLength = rayStartPoint.getDistanceTo(s.getPosition());
 
-		std::cout << "Camera ray: " << *this << std::endl;
-		std::cout << "Object ray: " << hypothenuse << std::endl;
+		IFDEBUG(std::cout << "Camera ray: " << *this << std::endl;)
+		IFDEBUG(std::cout << "Object ray: " << hypothenuse << std::endl;)
 
 		Vec3 cameraVector = this->getDirection();
 		Vec3 hypVector    = hypothenuse.getDirection();
 
-		std::cout << "Camera vector: " << cameraVector << std::endl;
-		std::cout << "Object vector: " << hypVector << std::endl;
+		IFDEBUG(std::cout << "Camera vector: " << cameraVector << std::endl;)
+		IFDEBUG(std::cout << "Object vector: " << hypVector << std::endl;)
 
 		double angle = cameraVector.angleInDegreesTo(hypVector);
 
-		std::cout << "Angle: " << angle << std::endl;
+		IFDEBUG(std::cout << "Angle: " << angle << std::endl;)
 
 		//         s
 		//        /|
@@ -196,13 +196,13 @@ Ray3::getIntersect(const Solid& solid) {
 
 		double sine = std::sin(rt_math::deg2rad(angle));
 
-		std::cout << "Sine: " << sine << std::endl;
+		IFDEBUG(std::cout << "Sine: " << sine << std::endl;)
 
 		double distance = sine * hypothenuseLength;
 
 		if (distance < s.getRadius()) {
 			// HIT!
-			std::cout << "Hit with distance " << distance << std::endl;
+			IFDEBUG(std::cout << "Hit with distance " << distance << std::endl;)
 
 			double length = std::sqrt(
 				( hypothenuseLength * hypothenuseLength )
@@ -219,7 +219,7 @@ Ray3::getIntersect(const Solid& solid) {
 			return new Point(this->getEndPoint());
 
 		} else {
-			std::cout << "No hit, distance " << distance << std::endl;
+			IFDEBUG(std::cout << "No hit, distance " << distance << std::endl;)
 			return nullptr;
 		}
 	} else { return nullptr; }
