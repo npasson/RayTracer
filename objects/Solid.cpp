@@ -5,19 +5,14 @@
 #include "../generic/defines.h"
 #include "Solid.h"
 
-bool Solid::initialized = false;
+std::queue<Solid*> Solid::solids = std::queue<Solid*>{};
 
 Solid::Solid() {
-	if (UNLIKELY(!initialized)) {
-		Solid::init();
-	}
-	Solid::solids.emplace(this);
+	static std::queue<Solid*> solids;
+	solids.emplace(this);
 }
 
 const std::queue<Solid*>&
 Solid::getSolids() {
-	if (UNLIKELY(!initialized)) {
-		Solid::init();
-	}
-	return Solid::solids;
+	return solids;
 }

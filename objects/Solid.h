@@ -11,13 +11,6 @@
 class Solid {
 private:
 	static std::queue<Solid*> solids;
-
-	static inline void
-	init() {
-		Solid::solids = std::queue<Solid*>{};
-	}
-
-	static bool initialized;
 public:
 	static const std::queue<Solid*>&
 	getSolids();
