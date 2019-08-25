@@ -12,8 +12,13 @@ main() {
 	Camera& c = Camera::getInstance();
 
 	Sphere s{
-		{5, 0, 0},
+		{5, 1, 1},
 		2
+	};
+
+	Sphere s2{
+		{15, -1, -5},
+		7
 	};
 
 	c.forEachPixel([](Ray3 ray,
@@ -35,7 +40,7 @@ main() {
 			Point* p = ray.getIntersect(*s);
 
 			if (p == nullptr) {
-				return {0, 0, 0};
+				continue;
 			}
 
 			return p->getBrightnessFromLightSource(sun);
