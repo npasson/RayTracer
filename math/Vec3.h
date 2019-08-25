@@ -17,10 +17,9 @@ protected:
 public:
 	Vec3();
 
-	Vec3(
-			double x,
-			double y,
-			double z);
+	Vec3(double x,
+	     double y,
+	     double z);
 
 	double
 	getX() const;
@@ -56,15 +55,12 @@ public:
 	angleInDegreesTo(Vec3) const;
 
 	friend Vec3
-	operator*(
-			double,
-			Vec3);
+	operator*(double,
+	          Vec3);
 
 	friend std::ostream&
-	operator<<(
-			std::ostream&,
-			Vec3);
+	operator<<(std::ostream&,
+	           Vec3);
 };
-
 
 #endif //RAYTRACING_VEC3_H

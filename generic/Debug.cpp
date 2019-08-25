@@ -47,11 +47,15 @@ namespace Debug {
 
 		void
 		testMatrixMultiplication() {
-			Matrix m1(2, 3, {{3, 2, 1},
-			                 {1, 0, 2}});
-			Matrix m2(3, 2, {{1, 2},
-			                 {0, 1},
-			                 {4, 0}});
+			Matrix m1(2,
+			          3,
+			          {{3, 2, 1},
+			           {1, 0, 2}});
+			Matrix m2(3,
+			          2,
+			          {{1, 2},
+			           {0, 1},
+			           {4, 0}});
 
 			std::cout << "m1 = " << m1 << std::endl;
 			std::cout << "m2 = " << m2 << std::endl;
@@ -68,10 +72,9 @@ namespace Debug {
 
 			c.setFov(90);
 
-			c.forEachPixel([](
-					Ray3 currentRay,
-					uint16_t x,
-					uint16_t y) -> Color {
+			c.forEachPixel([](Ray3 currentRay,
+			                  uint16_t x,
+			                  uint16_t y) -> Color {
 				//std::cout << "(" << x << "," << y << ") -> " << currentRay << "\n";
 				std::cout << currentRay.getDirection() << "\n";
 
@@ -106,9 +109,17 @@ namespace Debug {
 				blue  = 0.2;
 			}
 
-			std::cout << "Creating sun with color " << Color({red, green, blue}) << "\n";
+			std::cout << "Creating sun with color " << Color({red,
+			                                                  green,
+			                                                  blue}) << "\n";
 
-			LightSource Sun = LightSource({100, 30, 0}, {red, green, blue}, 10);
+			LightSource Sun = LightSource({100,
+			                               30,
+			                               0},
+			                              {red,
+			                               green,
+			                               blue},
+			                              10);
 
 			int y, x;
 			for (y = 0; y < width; ++y) {

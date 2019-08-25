@@ -12,7 +12,8 @@
 
 class LightSource;
 
-class Point : public Vec3 {
+class Point
+	: public Vec3 {
 
 	//     z
 	//     |_ y
@@ -22,28 +23,25 @@ class Point : public Vec3 {
 public:
 	Point();
 
-	Point(
-			double x,
-			double y,
-			double z);
+	Point(double x,
+	      double y,
+	      double z);
 
 	double
 	getDistanceTo(Point) const;
 
 	double
-	getDistanceTo(
-			double x,
-			double y,
-			double z) const;
+	getDistanceTo(double x,
+	              double y,
+	              double z) const;
 
 	Ray3
 	getRayTo(Point) const;
 
 	Ray3
-	getRayTo(
-			double x,
-			double y,
-			double z) const;
+	getRayTo(double x,
+	         double y,
+	         double z) const;
 
 	Color
 	getBrightnessFromLightSource(LightSource) const;
@@ -52,9 +50,8 @@ public:
 	getPoint();
 
 	friend std::ostream&
-	operator<<(
-			std::ostream&,
-			Point);
+	operator<<(std::ostream&,
+	           Point);
 };
 
 #endif //RAYTRACING_POINT_H

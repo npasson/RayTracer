@@ -19,10 +19,9 @@ Color::Color(double brightness) {
 	this->_blue  = brightness;
 }
 
-Color::Color(
-		double r,
-		double g,
-		double b) {
+Color::Color(double r,
+             double g,
+             double b) {
 	this->_red   = rt_math::clamp(r, 0, 1);
 	this->_green = rt_math::clamp(g, 0, 1);
 	this->_blue  = rt_math::clamp(b, 0, 1);
@@ -30,11 +29,7 @@ Color::Color(
 
 double
 Color::getBrightness() {
-	return std::sqrt(
-			( _red * _red )
-			+ ( _green * _green )
-			+ ( _blue * _blue )
-	);
+	return std::sqrt(( _red * _red ) + ( _green * _green ) + ( _blue * _blue ));
 }
 
 Color
@@ -45,7 +40,9 @@ Color::operator*(double rhs) const {
 	//temp.setBlue(rhs * _blue);
 	//return temp;
 
-	return {rhs * _red, rhs * _green, rhs * _blue};
+	return {rhs * _red,
+	        rhs * _green,
+	        rhs * _blue};
 }
 
 Color
@@ -84,9 +81,8 @@ Color::setBlue(double blue) {
 }
 
 std::ostream&
-operator<<(
-		std::ostream& lhs,
-		Color rhs) {
+operator<<(std::ostream& lhs,
+           Color rhs) {
 	lhs << "(" << rhs._red << "," << rhs._green << "," << rhs._blue << ")";
 	return lhs;
 }

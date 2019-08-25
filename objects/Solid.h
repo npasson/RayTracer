@@ -5,7 +5,6 @@
 #ifndef RAYTRACING_SOLID_H
 #define RAYTRACING_SOLID_H
 
-
 #include <vector>
 #include <queue>
 
@@ -25,6 +24,5 @@ public:
 
 	Solid();
 };
-
 
 #endif //RAYTRACING_SOLID_H

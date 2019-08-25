@@ -5,7 +5,6 @@
 #ifndef RAYTRACING_MATRIX_H
 #define RAYTRACING_MATRIX_H
 
-
 #include <cstdint>
 #include <vector>
 #include <ostream>
@@ -17,14 +16,12 @@ public:
 
 	Matrix() = delete;
 
-	Matrix(
-			uint8_t,
-			uint8_t);
+	Matrix(uint8_t,
+	       uint8_t);
 
-	Matrix(
-			uint8_t,
-			uint8_t,
-			std::vector<std::vector<double>>&&);
+	Matrix(uint8_t,
+	       uint8_t,
+	       std::vector<std::vector<double>>&&);
 
 	explicit Matrix(const std::vector<std::vector<double>>&&);
 
@@ -35,9 +32,8 @@ public:
 	operator=(std::vector<std::vector<double>>);
 
 	friend std::ostream&
-	operator<<(
-			std::ostream&,
-			Matrix);
+	operator<<(std::ostream&,
+	           Matrix);
 
 private:
 	std::vector<std::vector<double>> _data;
@@ -56,6 +52,5 @@ public:
 private:
 	const uint8_t _cols;
 };
-
 
 #endif //RAYTRACING_MATRIX_H

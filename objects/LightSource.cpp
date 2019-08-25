@@ -4,11 +4,11 @@
 
 #include "LightSource.h"
 
-LightSource::LightSource(
-		const Point& location,
-		const Color& color,
-		double brightness)
-		: Point(location), _color(color), _brightness(brightness) {}
+LightSource::LightSource(const Point& location,
+                         const Color& color,
+                         double brightness)
+	: Point(location), _color(color), _brightness(brightness) {
+}
 
 void
 LightSource::setLocation(const Point& location) {

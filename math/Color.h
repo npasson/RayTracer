@@ -5,7 +5,6 @@
 #ifndef RAYTRACING_COLOR_H
 #define RAYTRACING_COLOR_H
 
-
 #include <ostream>
 
 class Color {
@@ -37,10 +36,9 @@ public:
 
 	explicit Color(double brightness);
 
-	Color(
-			double r,
-			double g,
-			double b);
+	Color(double r,
+	      double g,
+	      double b);
 
 	double
 	getBrightness();
@@ -52,10 +50,8 @@ public:
 	operator/(double rhs) const;
 
 	friend std::ostream&
-	operator<<(
-			std::ostream&,
-			Color);
+	operator<<(std::ostream&,
+	           Color);
 };
-
 
 #endif //RAYTRACING_COLOR_H

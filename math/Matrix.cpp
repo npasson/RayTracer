@@ -4,20 +4,16 @@
 
 #include "Matrix.h"
 
-Matrix::Matrix(
-		uint8_t rows,
-		uint8_t cols)
-		: _rows(rows),
-		  _cols(cols) {
+Matrix::Matrix(uint8_t rows,
+               uint8_t cols)
+	: _rows(rows), _cols(cols) {
 	this->_data = std::vector<std::vector<double>>(rows, std::vector<double>(cols));
 }
 
-Matrix::Matrix(
-		uint8_t rows,
-		uint8_t cols,
-		std::vector<std::vector<double>>&& data)
-		: _rows(rows),
-		  _cols(cols) {
+Matrix::Matrix(uint8_t rows,
+               uint8_t cols,
+               std::vector<std::vector<double>>&& data)
+	: _rows(rows), _cols(cols) {
 	this->_data = data;
 }
 
@@ -47,9 +43,7 @@ Matrix::operator*(const Matrix& rhs) const {
 	for (uint8_t row = 0; row < this->_rows; ++row) {
 		for (uint8_t col = 0; col < rhs._cols; ++col) {
 			for (uint8_t i = 0; i < this->_cols; ++i) {
-				m._data[row][col]
-						+= ( this->_data[row][i] )
-						   * ( rhs._data[i][col] );
+				m._data[row][col] += ( this->_data[row][i] ) * ( rhs._data[i][col] );
 			}
 		}
 	}
@@ -59,8 +53,7 @@ Matrix::operator*(const Matrix& rhs) const {
 
 Matrix&
 Matrix::operator=(std::vector<std::vector<double>> data) {
-	if (data.size() == this->_rows
-	    && data[0].size() == this->_cols) {
+	if (data.size() == this->_rows && data[0].size() == this->_cols) {
 		this->_data = data;
 	}
 
@@ -68,9 +61,8 @@ Matrix::operator=(std::vector<std::vector<double>> data) {
 }
 
 std::ostream&
-operator<<(
-		std::ostream& lhs,
-		Matrix rhs) {
+operator<<(std::ostream& lhs,
+           Matrix rhs) {
 	lhs << "{";
 	for (uint8_t row = 0; row < rhs._rows; ++row) {
 		lhs << "{";
@@ -90,9 +82,8 @@ operator<<(
 }
 
 Matrix::Matrix(const std::vector<std::vector<double>>&& data)
-		: _rows(static_cast<uint8_t>(data.size())),
-		  _cols{static_cast<uint8_t>(data.front()
-		                                 .size())} {
+	: _rows(static_cast<uint8_t>(data.size())), _cols{static_cast<uint8_t>(data.front()
+	                                                                           .size())} {
 	this->_data = data;
 }
 

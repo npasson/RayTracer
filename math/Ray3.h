@@ -10,26 +10,20 @@
 
 class Ray3 {
 public:
-	Ray3(
-			const Vec3& origin,
-			Vec3 direction,
-			double distance);
+	Ray3(const Vec3& origin,
+	     Vec3 direction,
+	     double distance);
 
-	Ray3(
-			const Vec3& origin,
-			Vec3 direction);
+	Ray3(const Vec3& origin,
+	     Vec3 direction);
 
 	enum Axes {
-		X, Y, Z,
-		UP, DOWN,
-		LEFT, RIGHT,
-		ROLL_LEFT, ROLL_RIGHT
+		X, Y, Z, UP, DOWN, LEFT, RIGHT, ROLL_LEFT, ROLL_RIGHT
 	};
 
 	Ray3
-	rotate(
-			Axes axis,
-			double degrees);
+	rotate(Axes axis,
+	       double degrees);
 
 	const Vec3&
 	getOrigin() const;
@@ -50,9 +44,8 @@ public:
 	setDistance(double distance);
 
 	friend std::ostream&
-	operator<<(
-			std::ostream&,
-			Ray3);
+	operator<<(std::ostream&,
+	           Ray3);
 
 protected:
 	Vec3   _origin;
@@ -60,6 +53,5 @@ protected:
 	double _distance;
 
 };
-
 
 #endif //RAYTRACING_RAY3_H

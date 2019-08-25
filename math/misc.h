@@ -17,12 +17,11 @@ namespace rt_math {
 	};
 
 	inline double
-	clamp(
-			double value,
-			double min,
-			double max) {
-		if (value > max) return max;
-		if (value < min) return min;
+	clamp(double value,
+	      double min,
+	      double max) {
+		if (value > max) { return max; }
+		if (value < min) { return min; }
 		return value;
 	}
 
@@ -32,10 +31,9 @@ namespace rt_math {
 	}
 
 	inline Ray3
-	rotateVector(
-			Ray3 ray,
-			Axes axis,
-			double degrees) {
+	rotateVector(Ray3 ray,
+	             Axes axis,
+	             double degrees) {
 		// TODO
 		Matrix rotationMatrix(3, 3);
 
@@ -64,11 +62,11 @@ namespace rt_math {
 
 		Matrix rotated = rotationMatrix * directional;
 
-		Ray3 rotatedRay(ray.getOrigin(), {
-				rotated.getData()[0][0],
-				rotated.getData()[1][0],
-				rotated.getData()[2][0]
-		}, ray.getDistance());
+		Ray3 rotatedRay(ray.getOrigin(),
+		                {rotated.getData()[0][0],
+		                 rotated.getData()[1][0],
+		                 rotated.getData()[2][0]},
+		                ray.getDistance());
 
 		return rotatedRay;
 	}

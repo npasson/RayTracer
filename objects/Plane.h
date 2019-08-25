@@ -5,12 +5,12 @@
 #ifndef RAYTRACING_PLANE_H
 #define RAYTRACING_PLANE_H
 
-
 #include "../math/Ray3.h"
 
 class Plane {
 public:
-	Plane(Vec3, Vec3); // normal form
+	Plane(Vec3,
+	      Vec3); // normal form
 
 protected:
 	Vec3 _origin;
@@ -30,6 +30,5 @@ public:
 protected:
 	Vec3 _normal;
 };
-
 
 #endif //RAYTRACING_PLANE_H

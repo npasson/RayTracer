@@ -10,13 +10,11 @@
 
 class Bitmap {
 public:
-	static
-	void
-	saveImage(
-			uint8_t*,
-			imageDimension_t height,
-			imageDimension_t width,
-			const std::string& imageFileName);
+	static void
+	saveImage(uint8_t*,
+	          imageDimension_t height,
+	          imageDimension_t width,
+	          const std::string& imageFileName);
 
 	static constexpr uint8_t BYTES_PER_PIXEL = 3; /// red, green, blue
 	static constexpr uint8_t RED             = 2;
@@ -28,16 +26,13 @@ protected:
 	static constexpr int infoHeaderSize = 40;
 
 	static uint8_t*
-	createBitmapFileHeader(
-			uint16_t height,
-			uint16_t width,
-			uint16_t paddingSize);
+	createBitmapFileHeader(uint16_t height,
+	                       uint16_t width,
+	                       uint16_t paddingSize);
 
 	static uint8_t*
-	createBitmapInfoHeader(
-			uint16_t height,
-			uint16_t width);
+	createBitmapInfoHeader(uint16_t height,
+	                       uint16_t width);
 };
-
 
 #endif //RAYTRACING_BITMAP_H

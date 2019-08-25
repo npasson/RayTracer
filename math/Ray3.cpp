@@ -8,20 +8,16 @@
 #include "Matrix.h"
 #include "misc.h"
 
-Ray3::Ray3(
-		const Vec3& origin,
-		const Vec3 direction,
-		double distance)
-		: _origin(origin.getNormalize()),
-		  _direction(direction.getNormalize()),
-		  _distance(distance) {}
+Ray3::Ray3(const Vec3& origin,
+           const Vec3 direction,
+           double distance)
+	: _origin(origin.getNormalize()), _direction(direction.getNormalize()), _distance(distance) {
+}
 
-Ray3::Ray3(
-		const Vec3& origin,
-		Vec3 direction)
-		: _origin(origin),
-		  _direction(direction),
-		  _distance(direction.getLength()) {}
+Ray3::Ray3(const Vec3& origin,
+           Vec3 direction)
+	: _origin(origin), _direction(direction), _distance(direction.getLength()) {
+}
 
 const Vec3&
 Ray3::getOrigin() const {
@@ -54,21 +50,15 @@ Ray3::setDistance(double distance) {
 }
 
 std::ostream&
-operator<<(
-		std::ostream& lhs,
-		Ray3 rhs) {
-	lhs << "{R"
-	    << rhs.getOrigin()
-	    << "+x*"
-	    << rhs.getDirection()
-	    << "(d" << rhs.getDistance() << ")}";
+operator<<(std::ostream& lhs,
+           Ray3 rhs) {
+	lhs << "{R" << rhs.getOrigin() << "+x*" << rhs.getDirection() << "(d" << rhs.getDistance() << ")}";
 	return lhs;
 }
 
 Ray3
-Ray3::rotate(
-		Axes axis,
-		double degrees) {
+Ray3::rotate(Axes axis,
+             double degrees) {
 	Matrix rotationMatrix(3, 3);
 	Ray3   ray   = *this;
 	double theta = rt_math::deg2rad(degrees);
@@ -90,9 +80,13 @@ Ray3::rotate(
 		if (axis == UP || axis == DOWN) {
 			Vec3 target;
 			if (axis == DOWN) {
-				target = {0, 0, -1};
+				target = {0,
+				          0,
+				          -1};
 			} else {
-				target = {0, 0, 1};
+				target = {0,
+				          0,
+				          1};
 			}
 
 			double angle = ray.getDirection()
@@ -104,10 +98,9 @@ Ray3::rotate(
 			// taking into account how many degrees we're away from the lowest vector
 			// TODO rotations beyond completely down/up are not tested, stay away.
 
-			Ray3 rotatedRay(ray.getOrigin(), (
-					(( 1 - percentageToStillRotate ) * ray.getDirection())
-					+ ( percentageToStillRotate * target )
-			).getNormalize());
+			Ray3 rotatedRay(ray.getOrigin(),
+			                ((( 1 - percentageToStillRotate ) * ray.getDirection()) +
+			                 ( percentageToStillRotate * target )).getNormalize());
 			return rotatedRay;
 		}
 	}
@@ -121,11 +114,10 @@ Ray3::rotate(
 
 	Matrix rotated = rotationMatrix * directional;
 
-	Ray3 rotatedRay(ray.getOrigin(), {
-			rotated.getData()[0][0],
-			rotated.getData()[1][0],
-			rotated.getData()[2][0]
-	});
+	Ray3 rotatedRay(ray.getOrigin(),
+	                {rotated.getData()[0][0],
+	                 rotated.getData()[1][0],
+	                 rotated.getData()[2][0]});
 
 	return rotatedRay;
 }

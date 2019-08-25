@@ -8,11 +8,18 @@
 #include "../math/misc.h"
 
 Camera::Camera(Ray3 ray)
-		: _position(ray) {}
+	: _position(ray) {
+}
 
 Camera&
 Camera::getInstance() {
-	static Camera _instance({{0, 0, 0}, {1, 0, 0}, 1});
+	static Camera _instance({{0,
+	                          0,
+	                          0},
+	                         {1,
+	                          0,
+	                          0},
+	                         1});
 	return _instance;
 }
 
@@ -37,11 +44,9 @@ Camera::setFov(double fov) {
 }
 
 void
-Camera::forEachPixel(
-		Color (* callback)(
-				Ray3,
-				uint16_t,
-				uint16_t)) {
+Camera::forEachPixel(Color (* callback)(Ray3,
+                                        uint16_t,
+                                        uint16_t)) {
 
 	const Vec3& origin = this->_position
 	                         .getOrigin();
@@ -92,9 +97,8 @@ Camera::getPixelCameraY(uint16_t px) const {
 }
 
 Vec3
-Camera::getPixelCoordinate(
-		uint16_t x,
-		uint16_t y) const {
+Camera::getPixelCoordinate(uint16_t x,
+                           uint16_t y) const {
 	return {1,
 	        getPixelCameraX(x),
 	        getPixelCameraY(y)};

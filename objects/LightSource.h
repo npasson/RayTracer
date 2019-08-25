@@ -9,12 +9,12 @@
 #include "../math/Vec3.h"
 #include "../math/Color.h"
 
-class LightSource : public Point {
+class LightSource
+	: public Point {
 public:
-	LightSource(
-			const Point& location,
-			const Color& color,
-			double brightness);
+	LightSource(const Point& location,
+	            const Color& color,
+	            double brightness);
 
 	void
 	setLocation(const Point& location);
@@ -35,6 +35,5 @@ private:
 	Color  _color;
 	double _brightness;
 };
-
 
 #endif //RAYTRACING_LIGHTSOURCE_H

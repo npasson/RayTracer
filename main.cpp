@@ -9,9 +9,13 @@ main() {
 
 	Camera& c = Camera::getInstance();
 
-	c.forEachPixel([](Ray3 ray, uint16_t x, uint16_t y) -> Color {
+	c.forEachPixel([](Ray3 ray,
+	                  uint16_t x,
+	                  uint16_t y) -> Color {
 		std::cout << ray << std::endl;
-		return {0,0,0};
+		return {0,
+		        0,
+		        0};
 	});
 }
 
