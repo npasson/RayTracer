@@ -21,17 +21,17 @@ Matrix::Matrix(
 	this->_data = data;
 }
 
-const std::vector<std::vector<double>>
+std::vector<std::vector<double>>
 Matrix::getData() const {
 	return _data;
 }
 
-const uint8_t
+uint8_t
 Matrix::getRows() const {
 	return _rows;
 }
 
-const uint8_t
+uint8_t
 Matrix::getCols() const {
 	return _cols;
 }

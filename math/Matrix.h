@@ -44,13 +44,13 @@ private:
 
 	const uint8_t _rows;
 public:
-	const std::vector<std::vector<double>>
+	std::vector<std::vector<double>>
 	getData() const;
 
-	const uint8_t
+	uint8_t
 	getRows() const;
 
-	const uint8_t
+	uint8_t
 	getCols() const;
 
 private:
