@@ -14,7 +14,7 @@ Bitmap::saveImage(
 	const std::string& imageFileName) {
 
 	byte_t   padding[3]  = {0, 0, 0};
-	uint16_t paddingSize = ( 4 - ( width * BYTES_PER_PIXEL ) % 4 ) % 4;
+	uint16_t paddingSize = ( uint16_t{4} - ( width * BYTES_PER_PIXEL ) % uint16_t{4} ) % uint16_t{4};
 
 	byte_t* fileHeader = createBitmapFileHeader(height, width, paddingSize);
 	byte_t* infoHeader = createBitmapInfoHeader(height, width);
