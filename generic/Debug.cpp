@@ -75,7 +75,7 @@ namespace Debug {
 				//std::cout << "(" << x << "," << y << ") -> " << currentRay << "\n";
 				std::cout << currentRay.getDirection() << "\n";
 
-				return Color();
+				return {}; // empty color
 			});
 
 			std::cout << "Done!" << std::endl;

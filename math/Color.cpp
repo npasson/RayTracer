@@ -45,7 +45,7 @@ Color::operator*(double rhs) const {
 	//temp.setBlue(rhs * _blue);
 	//return temp;
 
-	return Color(rhs * _red, rhs * _green, rhs * _blue);
+	return {rhs * _red, rhs * _green, rhs * _blue};
 }
 
 Color

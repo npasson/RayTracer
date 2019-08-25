@@ -43,7 +43,7 @@ Point::getRayTo(Point p) const {
 			p._y - this->_y,
 			p._z - this->_z
 	};
-	return Ray3(*this, pointing, pointing.getLength());
+	return {*this, pointing, pointing.getLength()};
 }
 
 Ray3

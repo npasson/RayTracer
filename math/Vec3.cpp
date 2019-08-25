@@ -46,18 +46,18 @@ Vec3::getLength() const {
 Vec3
 Vec3::getNormalize() const {
 	if (this->getLength() == 0) return {0, 0, 0};
-	return Vec3(
-			_x / getLength(),
-			_y / getLength(),
-			_z / getLength()
-	);
+	return {
+		_x / getLength(),
+		_y / getLength(),
+		_z / getLength()
+	};
 }
 
 Vec3
 Vec3::operator+(Vec3 rhs) const {
-	return Vec3(this->_x + rhs._x,
+	return {this->_x + rhs._x,
 	            this->_y + rhs._y,
-	            this->_z + rhs._z);
+	            this->_z + rhs._z};
 }
 
 double
@@ -83,11 +83,11 @@ Vec3::angleInDegreesTo(Vec3 rhs) const {
 
 Vec3
 operator*(
-		double lhs,
-		Vec3 rhs) {
-	return Vec3(lhs * rhs._x,
-	            lhs * rhs._y,
-	            lhs * rhs._z);
+	double lhs,
+	Vec3 rhs) {
+	return {lhs * rhs._x,
+	        lhs * rhs._y,
+	        lhs * rhs._z};
 }
 
 std::ostream&
