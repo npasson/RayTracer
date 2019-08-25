@@ -74,6 +74,11 @@ Color::setBlue(double blue) {
 	_blue = blue;
 }
 
+byte_t
+Color::toByte(double color) {
+	return static_cast<byte_t>(color * 256);
+}
+
 std::ostream&
 operator<<(std::ostream& lhs,
            Color rhs) {
@@ -85,3 +90,4 @@ operator<<(std::ostream& lhs,
 		<< ")";
 	return lhs;
 }
+

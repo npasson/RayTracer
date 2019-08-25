@@ -6,6 +6,7 @@
 #define RAYTRACING_COLOR_H
 
 #include <ostream>
+#include "../generic/defines.h"
 
 class Color {
 	double _red;
@@ -42,6 +43,9 @@ public:
 
 	double
 	getBrightness();
+
+	static byte_t
+	toByte(double);
 
 	Color
 	operator*(double rhs) const;

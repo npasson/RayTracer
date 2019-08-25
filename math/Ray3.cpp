@@ -138,32 +138,70 @@ Ray3::rotate(Axes axis,
 	return rotatedRay;
 }
 
-Point
+Point*
 Ray3::getIntersect(const Solid& solid) {
 	if (solid.getType() == SPHERE) {
 		auto& s = dynamic_cast<const Sphere&>(solid);
 
-		Ray3 hypothenuse = Point(
+		Point rayStartPoint = Point(
 			this->_origin
 			    .getX(),
 			this->_origin
 			    .getY(),
 			this->_origin
 			    .getZ()
-		).getRayTo(
+		);
+
+		Ray3 hypothenuse = rayStartPoint.getRayTo(
 			s.getPosition()
 		);
 
-		double angle = hypothenuse.getDirection()
-		                          .angleInDegreesTo(this->getDirection());
+		std::cout << "Camera ray: " << *this << std::endl;
+		std::cout << "Object ray: " << hypothenuse << std::endl;
 
-		double distance = std::sin(rt_math::deg2rad(angle))
-		                  * hypothenuse._direction
-		                               .getLength();
+		Vec3 cameraVector = this->getDirection();
+		Vec3 hypVector    = hypothenuse.getDirection();
+
+		std::cout << "Camera vector: " << cameraVector << std::endl;
+		std::cout << "Object vector: " << hypVector << std::endl;
+
+		double angle = cameraVector.angleInDegreesTo(hypVector);
+
+		std::cout << "Angle: " << angle << std::endl;
+
+		//         s
+		//        /|
+		//       / |
+		//    h /  |
+		//     /   | d
+		//    /   _|
+		//   /A__|_|
+		// r
+		//
+		// d = sin(A) * h
+		//
+
+		double sine = std::sin(rt_math::deg2rad(angle));
+
+		std::cout << "Sine: " << sine << std::endl;
+
+		double distance = sine * rayStartPoint.getDistanceTo(s.getPosition());
 
 		if (distance < s.getRadius()) {
 			// HIT!
+			std::cout << "Hit with distance " << distance << std::endl;
+			return new Point{1, 1, 1};
+
+			double offset = std::sqrt(
+				(s.getRadius() * s.getRadius())
+				+ (distance * distance)
+			);
+
+
+		} else {
+			std::cout << "No hit, distance " << distance << std::endl;
+			return nullptr;
 		}
-	}
+	} else { return nullptr; }
 
 }

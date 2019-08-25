@@ -6,13 +6,13 @@
 
 Sphere::Sphere(Point location,
                double radius)
-	: Solid(SPHERE) {
+	: Solid() {
 	this->_position = location;
 	this->_radius   = radius;
 }
 
 Sphere::Sphere(Point location)
-	: Solid(SPHERE) {
+	: Solid() {
 	this->_position = location;
 	this->_radius   = 1;
 }

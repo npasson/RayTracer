@@ -12,6 +12,8 @@
 
 class LightSource;
 
+class Ray3;
+
 class Point
 	: public Vec3 {
 

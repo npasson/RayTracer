@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "../math/Color.h"
 #include "../math/misc.h"
+#include "../Bitmap.h"
 
 Camera::Camera(Ray3 ray)
 	: _position(ray) {
@@ -49,6 +50,8 @@ Camera::forEachPixel(Color (* callback)(Ray3,
                                         uint16_t,
                                         uint16_t)) {
 
+	auto image = new byte_t[_yRes][_xRes][Bitmap::BYTES_PER_PIXEL];
+
 	const Vec3& origin = this->_position
 	                         .getOrigin();
 
@@ -56,12 +59,21 @@ Camera::forEachPixel(Color (* callback)(Ray3,
 		for (uint16_t y = 0; y < _yRes; ++y) {
 			Ray3 pixelRay = {
 				{origin},
-				getPixelCoordinate(x, y).getNormalize()
+				getPixelCoordinate(x, y)
 			};
 
-			callback(pixelRay, x, y);
+			Color c = callback(pixelRay, x, y);
+
+			image[x][y][Bitmap::RED]   = static_cast<uint8_t>(c.getRed() * 255 );
+			image[x][y][Bitmap::GREEN] = static_cast<uint8_t>(c.getGreen() * 255 );
+			image[x][y][Bitmap::BLUE]  = static_cast<uint8_t>(c.getBlue() * 255 );
 		}
 	}
+
+	std::string imageFileName = "bitmapImage4.bmp";
+
+	Bitmap::saveImage(reinterpret_cast<byte_t*>(image), _xRes, _yRes, imageFileName);
+	std::cout << "Generated!" << std::endl;
 }
 
 double inline
@@ -82,3 +94,23 @@ Camera::getPixelCoordinate(uint16_t x,
 	        x_space,
 	        y_space};
 }
+
+uint16_t
+Camera::getXRes() const {
+	return _xRes;
+}
+
+//void
+//Camera::setXRes(uint16_t xRes) {
+//	_xRes = xRes;
+//}
+
+uint16_t
+Camera::getYRes() const {
+	return _yRes;
+}
+
+//void
+//Camera::setYRes(uint16_t yRes) {
+//	_yRes = yRes;
+//}

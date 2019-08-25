@@ -19,9 +19,22 @@ private:
 
 	Ray3 _position;
 
-	uint16_t _xRes = 10;
-	uint16_t _yRes = 10;
+	const static uint16_t _xRes = 100;
+	const static uint16_t _yRes = 100;
 public:
+	uint16_t
+	getXRes() const;
+
+	void
+	setXRes(uint16_t xRes);
+
+	uint16_t
+	getYRes() const;
+
+	void
+	setYRes(uint16_t yRes);
+
+
 	void
 	forEachPixel(Color (* callback)(Ray3,
 	                                uint16_t,
@@ -44,24 +57,6 @@ private:
 
 	double inline
 	getAspectRatio() const;
-
-	double
-	getPixelNDCX(uint16_t) const;
-
-	double
-	getPixelNDCY(uint16_t) const;
-
-	double
-	getPixelScreenX(uint16_t) const;
-
-	double
-	getPixelScreenY(uint16_t) const;
-
-	double
-	getPixelCameraX(uint16_t) const;
-
-	double
-	getPixelCameraY(uint16_t) const;
 
 	Vec3
 	getPixelCoordinate(uint16_t,

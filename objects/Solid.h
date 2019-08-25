@@ -21,7 +21,7 @@ public:
 	virtual uint8_t
 	getType() const;
 
-	explicit Solid(uint8_t type);
+	explicit Solid();
 };
 
 #endif //RAYTRACING_SOLID_H

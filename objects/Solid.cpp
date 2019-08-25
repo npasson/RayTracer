@@ -7,14 +7,13 @@
 
 std::queue<Solid*> Solid::solids = std::queue<Solid*>{};
 
-Solid::Solid(uint8_t type): TYPE(type) {
-	static std::queue<Solid*> solids;
-	solids.emplace(this);
+Solid::Solid() {
+	Solid::solids.emplace(this);
 }
 
 const std::queue<Solid*>&
 Solid::getSolids() {
-	return solids;
+	return Solid::solids;
 }
 
 uint8_t

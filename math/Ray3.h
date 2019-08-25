@@ -10,6 +10,8 @@
 #include "Point.h"
 #include "../objects/Solid.h"
 
+class Point;
+
 class Ray3 {
 public:
 	Ray3(const Vec3& origin,
@@ -45,7 +47,7 @@ public:
 	void
 	setDistance(double distance);
 
-	Point
+	Point*
 	getIntersect(const Solid&);
 
 	friend std::ostream&
