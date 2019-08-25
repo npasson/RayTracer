@@ -9,19 +9,30 @@ main() {
 
 	Camera& c = Camera::getInstance();
 
-	Sphere sa {
+	LightSource sun{
+		{1, 1, 1},
+		{1, 1, 1},
+		3
+	};
+
+	LightSource red{
+		{2, 2, 2},
+		{1, 0, 0},
+		1
+	};
+
+	Sphere sa{
 		{3, 1, 2},
 		1
-	}, sb {
+	},     sb{
 		{3, 0, -1},
 		1
-	}, sc {
+	},     sc{
 		{2, -1, -1},
 		1
 	};
 
 	c.render();
-
 
 }
 

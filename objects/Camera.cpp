@@ -122,12 +122,6 @@ Camera::render() {
 		//std::cout << ray << std::endl;
 		auto solids = Solid::getSolids();
 
-		LightSource sun{
-			{1, 1, 1},
-			{1, 1, 1},
-			3
-		};
-
 		std::vector<Point> hits;
 
 		while (!solids.empty()) {
@@ -160,7 +154,20 @@ Camera::render() {
 
 		Point p = hits.front();
 
-		return p.getBrightnessFromLightSource(sun);
+		auto lights = LightSource::getLights();
+
+		std::vector<Color> lighting;
+
+		while (!lights.empty()) {
+			LightSource* ls = lights.front();
+			lights.pop();
+
+			lighting.push_back(p.getBrightnessFromLightSource(*ls));
+		}
+
+		Color combined = Color::combine(lighting);
+
+		return combined;
 	});
 }
 

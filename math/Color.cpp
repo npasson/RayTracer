@@ -91,3 +91,20 @@ operator<<(std::ostream& lhs,
 	return lhs;
 }
 
+Color
+Color::combine(const std::vector<Color>& colors) {
+	Color total = {0, 0, 0};
+
+	auto amount = colors.size();
+
+	for (Color c : colors) {
+		total = {
+			total.getRed() + ( c.getBrightness() * c.getRed() * ( 1.0 / amount )),
+			total.getGreen() + ( c.getBrightness() * c.getGreen() * ( 1.0 / amount )),
+			total.getBlue() + ( c.getBrightness() * c.getBlue() * ( 1.0 / amount ))
+		};
+	}
+
+	return total;
+}
+

@@ -11,7 +11,13 @@
 
 class LightSource
 	: public Point {
+
+private:
+	static std::queue<LightSource*> lights;
 public:
+	static const std::queue<LightSource*>&
+	getLights();
+
 	LightSource(const Point& location,
 	            const Color& color,
 	            double brightness);

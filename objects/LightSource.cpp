@@ -4,12 +4,20 @@
 
 #include "LightSource.h"
 
+std::queue<LightSource*> LightSource::lights = std::queue<LightSource*>{};
+
+const std::queue<LightSource*>&
+LightSource::getLights() {
+	return lights;
+}
+
 LightSource::LightSource(const Point& location,
                          const Color& color,
                          double brightness)
 	: Point(location),
 	  _color(color),
 	  _brightness(brightness) {
+	LightSource::lights.emplace(this);
 }
 
 void

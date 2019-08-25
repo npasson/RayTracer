@@ -6,11 +6,22 @@
 #define RAYTRACING_COLOR_H
 
 #include <ostream>
+#include <vector>
 #include "../generic/defines.h"
 
 class Color {
 	double _red;
+	double _green;
+	double _blue;
 public:
+	Color();
+
+	explicit Color(double brightness);
+
+	Color(double r,
+	      double g,
+	      double b);
+
 	double
 	getRed() const;
 
@@ -29,23 +40,14 @@ public:
 	void
 	setBlue(double blue);
 
-private:
-	double _green;
-	double _blue;
-public:
-	Color();
-
-	explicit Color(double brightness);
-
-	Color(double r,
-	      double g,
-	      double b);
-
 	double
 	getBrightness();
 
 	static byte_t
 	toByte(double);
+
+	static Color
+	combine(const std::vector<Color>&);
 
 	Color
 	operator*(double rhs) const;
