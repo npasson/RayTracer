@@ -30,13 +30,13 @@ public:
 					uint16_t,
 					uint16_t));
 
-	[[nodiscard]] const Ray3&
+	const Ray3&
 	getPosition() const;
 
 	void
 	setPosition(const Ray3& position);
 
-	[[nodiscard]] double
+	double
 	getFov() const;
 
 	void
@@ -45,28 +45,28 @@ public:
 private:
 	double _fov = 90;
 
-	[[nodiscard]] double inline
+	double inline
 	getAspectRatio() const;
 
-	[[nodiscard]] double
+	double
 	getPixelNDCX(uint16_t) const;
 
-	[[nodiscard]] double
+	double
 	getPixelNDCY(uint16_t) const;
 
-	[[nodiscard]] double
+	double
 	getPixelScreenX(uint16_t) const;
 
-	[[nodiscard]] double
+	double
 	getPixelScreenY(uint16_t) const;
 
-	[[nodiscard]] double
+	double
 	getPixelCameraX(uint16_t) const;
 
-	[[nodiscard]] double
+	double
 	getPixelCameraY(uint16_t) const;
 
-	[[nodiscard]] Vec3
+	Vec3
 	getPixelCoordinate(
 			uint16_t,
 			uint16_t) const;
