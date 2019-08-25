@@ -1,11 +1,5 @@
-#include <cstdio>
 #include <cstdint>
-#include <ctime>
 #include <iostream>
-#include "Bitmap.h"
-#include "objects/LightSource.h"
-#include "math/Matrix.h"
-#include "math/misc.h"
 #include "objects/Camera.h"
 #include "generic/Debug.h"
 

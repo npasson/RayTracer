@@ -2,7 +2,6 @@
 // Created by root on 29.05.2019.
 //
 
-#include <iostream>
 #include <cmath>
 #include "Camera.h"
 #include "../math/Color.h"
