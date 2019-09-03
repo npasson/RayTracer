@@ -9,8 +9,8 @@
 
 class Material {
 	Color  _phong_ambient_multiplier{0.5};
-	Color  _phong_diffuse_multiplier{0.5};
-	Color  _phong_specular_multiplier{0.5};
+	Color  _phong_diffuse_multiplier{0.1};
+	Color  _phong_specular_multiplier{0.2};
 	double _phong_alpha{50};
 public:
 	Material() = default;

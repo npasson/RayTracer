@@ -97,20 +97,20 @@ Camera::forEachPixel(Color (* callback)(Ray3,
 				rt_math::clamp(static_cast<double>(
 					               image[x][y][Bitmap::RED]
 				               )
-				               / max + min, 0, 255)
+				               / max - min, 0, 255)
 			);
 
 			image[x][y][Bitmap::GREEN] = static_cast<uint8_t>(
 				rt_math::clamp(static_cast<double>(
 					               image[x][y][Bitmap::GREEN
 					               ])
-				               / max + min, 0, 255)
+				               / max - min, 0, 255)
 			);
 			image[x][y][Bitmap::BLUE]  = static_cast<uint8_t>(
 				rt_math::clamp(static_cast<double>(
 					               image[x][y][Bitmap::BLUE]
 				               )
-				               / max + min, 0, 255)
+				               / max - min, 0, 255)
 			);
 
 		}
