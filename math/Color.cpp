@@ -122,3 +122,12 @@ Color::operator+=(Color rhs) {
 	return ( *this ) = ( *this ) + rhs;
 }
 
+Color
+Color::operator*(Color rhs) const {
+	return {
+		this->_red * rhs._red,
+		this->_green * rhs._green,
+		this->_blue * rhs._blue,
+	};
+}
+

@@ -49,11 +49,17 @@ public:
 	static Color
 	combine(const std::vector<Color>&);
 
-	Color operator+(Color);
-	Color operator+=(Color);
+	Color
+	operator+(Color);
+
+	Color
+	operator+=(Color);
 
 	Color
 	operator*(double rhs) const;
+
+	Color
+	operator*(Color) const;
 
 	Color
 	operator/(double rhs) const;

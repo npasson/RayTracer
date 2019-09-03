@@ -84,9 +84,9 @@ namespace rt_math {
 
 		Vec3 cameraVector = cameraVectorArg.getNormalize();
 
-		double i_a = 1,
-		       i_d = 1,
-		       i_s = 1;
+		Color i_a {},
+		       i_d{},
+		       i_s{};
 
 		Color k_a = s.getMaterial()
 		             .getPhongAmbientMultiplier(),
@@ -111,6 +111,9 @@ namespace rt_math {
 		while (! lights.empty()) {
 			LightSource ls = *( lights.front());
 			lights.pop();
+
+			i_d = p.getBrightnessFromLightSource(ls);
+			i_s = ls.getColor();
 
 			Vec3 lightVector = ls.getVectorTo(p)
 			                     .getNormalize();
