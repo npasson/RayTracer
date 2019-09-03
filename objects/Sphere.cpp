@@ -22,16 +22,6 @@ Sphere::getType() const {
 	return SPHERE;
 }
 
-const Point&
-Sphere::getPosition() const {
-	return _position;
-}
-
-void
-Sphere::setPosition(const Point& position) {
-	_position = position;
-}
-
 double
 Sphere::getRadius() const {
 	return _radius;

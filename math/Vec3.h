@@ -46,10 +46,19 @@ public:
 	getNormalize() const;
 
 	Vec3
+	reflectOff(Vec3&);
+
+	Vec3
 	operator+(Vec3) const;
 
 	Vec3
 	operator+(double) const;
+
+	Vec3
+	operator-() const;
+
+	Vec3
+	operator-(Vec3) const;
 
 	double
 	operator*(Vec3) const;

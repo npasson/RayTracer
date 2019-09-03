@@ -107,3 +107,18 @@ Color::combine(const std::vector<Color>& colors) {
 	return total;
 }
 
+Color
+Color::operator+(Color rhs) {
+	return
+		{
+			this->_red + rhs._red,
+			this->_green + rhs._green,
+			this->_blue + rhs._blue,
+		};
+}
+
+Color
+Color::operator+=(Color rhs) {
+	return ( *this ) = ( *this ) + rhs;
+}
+

@@ -20,3 +20,28 @@ uint8_t
 Solid::getType() const {
 	return SOLID;
 }
+
+Point
+Solid::getPosition() const {
+	return _position;
+}
+
+void
+Solid::setPosition(const Point& position) {
+	_position = position;
+}
+
+const Material&
+Solid::getMaterial() const {
+	return _material;
+}
+
+void
+Solid::setMaterial(const Material& material) {
+	_material = material;
+}
+
+Vec3
+Solid::getNormal(Point& p) {
+	return this->getPosition().getVectorTo(p).getNormalize();
+}

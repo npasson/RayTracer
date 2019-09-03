@@ -5,9 +5,11 @@
 #ifndef RAYTRACING_LIGHTSOURCE_H
 #define RAYTRACING_LIGHTSOURCE_H
 
-#include "../math/Point.h"
+#include <queue>
+
 #include "../math/Vec3.h"
 #include "../math/Color.h"
+#include "../math/Point.h"
 
 class LightSource
 	: public Point {

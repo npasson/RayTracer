@@ -87,3 +87,12 @@ Point&
 Point::getPoint() {
 	return *this;
 }
+
+Vec3
+Point::getVectorTo(Point& rhs) const {
+	return {
+		rhs._x - this->_x,
+		rhs._y - this->_y,
+		rhs._z - this->_z,
+	};
+}

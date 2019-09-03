@@ -13,4 +13,4 @@ add_executable(RayTracing
         ${math_files}
         ${object_files}
         Bitmap.cpp
-        Bitmap.h)
+        Bitmap.h visual/Material.cpp visual/Material.h)

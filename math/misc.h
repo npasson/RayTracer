@@ -6,9 +6,12 @@
 #define RAYTRACING_MISC_H
 
 #include <cmath>
+#include <iostream>
 
 #include "Ray3.h"
 #include "Matrix.h"
+#include "../objects/LightSource.h"
+#include "../objects/Solid.h"
 
 namespace rt_math {
 
@@ -72,6 +75,65 @@ namespace rt_math {
 			ray.getDistance());
 
 		return rotatedRay;
+	}
+
+	inline Color
+	phong(Point& p,
+	      Solid& s,
+	      const Vec3& cameraVectorArg) {
+
+		Vec3 cameraVector = cameraVectorArg.getNormalize();
+
+		double i_a = 1,
+		       i_d = 1,
+		       i_s = 1;
+
+		Color k_a = s.getMaterial()
+		             .getPhongAmbientMultiplier(),
+		      k_d = s.getMaterial()
+		             .getPhongDiffuseMultiplier(),
+		      k_s = s.getMaterial()
+		             .getPhongSpecularMultiplier();
+
+		double alpha = s.getMaterial()
+		                .getPhongAlpha();
+
+		Vec3 v_normal = s.getNormal(p);
+		Vec3 v_v      = -cameraVector;
+
+		auto lights = LightSource::getLights();
+
+		//std::cout << "Light count: " << lights.size() << "\n";
+
+		Color each_light_sum;
+		Color ambient;
+
+		while (! lights.empty()) {
+			LightSource ls = *( lights.front());
+			lights.pop();
+
+			Vec3 lightVector = ls.getVectorTo(p)
+			                     .getNormalize();
+
+			Vec3 v_l_m = -lightVector;
+			Vec3 v_r_m = lightVector.reflectOff(v_normal)
+			                        .getNormalize();
+
+		//	std::cout << "LightVector:" << v_l_m << "\n";
+		//	std::cout << "RflctVector:" << v_r_m << "\n";
+
+
+
+			// diffuse element
+			each_light_sum += k_d * ( v_l_m * v_normal ) * i_d;
+
+			// specular element
+			each_light_sum += k_s * std::pow(v_r_m * v_v, alpha) * i_s;
+		}
+
+		//std::cout << "Phong: " << each_light_sum << "\n";
+
+		return each_light_sum;
 	}
 }
 

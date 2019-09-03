@@ -7,7 +7,6 @@
 #include "Ray3.h"
 #include "Matrix.h"
 #include "misc.h"
-#include "../objects/Solid.h"
 #include "../objects/Sphere.h"
 
 Ray3::Ray3(const Vec3& origin,

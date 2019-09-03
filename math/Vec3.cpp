@@ -134,3 +134,23 @@ operator<<(std::ostream& lhs,
 		<< ")";
 	return lhs;
 }
+
+Vec3
+Vec3::operator-(Vec3 rhs) const {
+	return
+		{
+			rhs._x - this->_x,
+			rhs._y - this->_y,
+			rhs._z - this->_z
+		};
+}
+
+Vec3
+Vec3::operator-() const {
+	return {-_x, -_y, -_z};
+}
+
+Vec3
+Vec3::reflectOff(Vec3& normal) {
+	return ( 2 * ( normal * ( *this )) * normal ) - ( *this );
+}

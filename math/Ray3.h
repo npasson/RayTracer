@@ -7,10 +7,11 @@
 
 #include <ostream>
 #include "Vec3.h"
-#include "Point.h"
-#include "../objects/Solid.h"
+
+
 
 class Point;
+class Solid;
 
 class Ray3 {
 public:

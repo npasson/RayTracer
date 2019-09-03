@@ -8,7 +8,6 @@
 #include <cstdint>
 #include <vector>
 #include <ostream>
-#include "Point.h"
 
 class Matrix {
 public:

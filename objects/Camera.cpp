@@ -57,8 +57,12 @@ Camera::forEachPixel(Color (* callback)(Ray3,
 	const Vec3& origin = this->_position
 	                         .getOrigin();
 
+	double max = 1;
+	double min = 0;
+
 	for (uint16_t x = 0; x < _xRes; ++x) {
 		for (uint16_t y = 0; y < _yRes; ++y) {
+
 			Ray3 pixelRay = {
 				{origin},
 				getPixelCoordinate(x, y)
@@ -66,9 +70,49 @@ Camera::forEachPixel(Color (* callback)(Ray3,
 
 			Color c = callback(pixelRay, x, y);
 
-			image[x][y][Bitmap::RED]   = static_cast<uint8_t>(rt_math::clamp(c.getRed(), 0, 1) * 255 );
-			image[x][y][Bitmap::GREEN] = static_cast<uint8_t>(rt_math::clamp(c.getGreen(), 0, 1) * 255 );
-			image[x][y][Bitmap::BLUE]  = static_cast<uint8_t>(rt_math::clamp(c.getBlue(), 0, 1) * 255 );
+			double red   = c.getRed();
+			double green = c.getGreen();
+			double blue  = c.getBlue();
+
+			double local_max = std::max({red, green, blue});
+			double local_min = std::min({red, green, blue});
+
+			if (local_max > max) {
+				max = local_max;
+			}
+
+			if (local_min < min) {
+				min = local_min;
+			}
+
+			image[x][y][Bitmap::RED]   = static_cast<uint8_t>(red * 255 );
+			image[x][y][Bitmap::GREEN] = static_cast<uint8_t>(green * 255 );
+			image[x][y][Bitmap::BLUE]  = static_cast<uint8_t>(green * 255 );
+		}
+	}
+
+	for (uint16_t x = 0; x < _xRes; ++x) {
+		for (uint16_t y = 0; y < _yRes; ++y) {
+			image[x][y][Bitmap::RED] = static_cast<uint8_t>(
+				rt_math::clamp(static_cast<double>(
+					               image[x][y][Bitmap::RED]
+				               )
+				               / max + min, 0, 255)
+			);
+
+			image[x][y][Bitmap::GREEN] = static_cast<uint8_t>(
+				rt_math::clamp(static_cast<double>(
+					               image[x][y][Bitmap::GREEN
+					               ])
+				               / max + min, 0, 255)
+			);
+			image[x][y][Bitmap::BLUE]  = static_cast<uint8_t>(
+				rt_math::clamp(static_cast<double>(
+					               image[x][y][Bitmap::BLUE]
+				               )
+				               / max + min, 0, 255)
+			);
+
 		}
 	}
 
@@ -122,7 +166,7 @@ Camera::render() {
 		//std::cout << ray << std::endl;
 		auto solids = Solid::getSolids();
 
-		std::vector<Point> hits;
+		std::vector<std::pair<Solid, Point>> hits;
 
 		while (!solids.empty()) {
 			Solid* s = solids.front();
@@ -134,7 +178,7 @@ Camera::render() {
 				continue;
 			}
 
-			hits.push_back(*p);
+			hits.emplace_back(*s, *p);
 
 			delete p;
 
@@ -146,13 +190,18 @@ Camera::render() {
 
 		std::sort(hits.begin(),
 		          hits.end(),
-		          [&](Point lhs,
-		              Point rhs) -> bool {
-			          return Point(ray.getOrigin()).getDistanceTo(lhs)
-			                 < Point(ray.getOrigin()).getDistanceTo(rhs);
+		          [&](std::pair<Solid, Point> lhs,
+		              std::pair<Solid, Point> rhs) -> bool {
+			          return Point(ray.getOrigin()).getDistanceTo(lhs.second)
+			                 < Point(ray.getOrigin()).getDistanceTo(rhs.second);
 		          });
 
-		Point p = hits.front();
+		Point hit_point = hits.front()
+		                      .second;
+		Solid hit_solid = hits.front()
+		                      .first;
+
+		/*
 
 		auto lights = LightSource::getLights();
 
@@ -168,6 +217,9 @@ Camera::render() {
 		Color combined = Color::combine(lighting);
 
 		return combined;
+		 */
+
+		return rt_math::phong(hit_point, hit_solid, ray.getDirection());
 	});
 }
 

@@ -6,9 +6,9 @@
 #define RAYTRACING_POINT_H
 
 #include "../generic/defines.h"
-#include "Ray3.h"
 #include "Vec3.h"
 #include "Color.h"
+#include "Ray3.h"
 
 class LightSource;
 
@@ -38,6 +38,9 @@ public:
 	getDistanceTo(double x,
 	              double y,
 	              double z) const;
+
+	Vec3
+	getVectorTo(Point&) const;
 
 	Ray3
 	getRayTo(Point) const;

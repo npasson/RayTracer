@@ -1,5 +1,5 @@
-#include "objects/Camera.h"
 #include "generic/Debug.h"
+#include "objects/Camera.h"
 #include "objects/LightSource.h"
 #include "objects/Sphere.h"
 

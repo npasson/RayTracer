@@ -25,14 +25,9 @@ public:
 	uint16_t
 	getXRes() const;
 
-	void
-	setXRes(uint16_t xRes);
-
 	uint16_t
 	getYRes() const;
 
-	void
-	setYRes(uint16_t yRes);
 
 	void
 	render();

@@ -5,19 +5,10 @@
 #ifndef RAYTRACING_SPHERE_H
 #define RAYTRACING_SPHERE_H
 
-#include "../math/Point.h"
 #include "Solid.h"
 
 class Sphere : public Solid {
-private:
-	Point  _position;
 public:
-	const Point&
-	getPosition() const;
-
-	void
-	setPosition(const Point& position);
-
 	double
 	getRadius() const;
 
