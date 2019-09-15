@@ -84,9 +84,9 @@ namespace rt_math {
 
 		Vec3 cameraVector = cameraVectorArg.getNormalize();
 
-		Color i_a {},
-		       i_d{},
-		       i_s{};
+		Color i_a{},
+		      i_d{},
+		      i_s{};
 
 		Color k_a = s.getMaterial()
 		             .getPhongAmbientMultiplier(),
@@ -108,7 +108,7 @@ namespace rt_math {
 		Color each_light_sum;
 		Color ambient;
 
-		while (! lights.empty()) {
+		while (!lights.empty()) {
 			LightSource ls = *( lights.front());
 			lights.pop();
 
@@ -122,16 +122,21 @@ namespace rt_math {
 			Vec3 v_r_m = lightVector.reflectOff(v_normal)
 			                        .getNormalize();
 
-		//	std::cout << "LightVector:" << v_l_m << "\n";
-		//	std::cout << "RflctVector:" << v_r_m << "\n";
+			//	std::cout << "LightVector:" << v_l_m << "\n";
+			//	std::cout << "RflctVector:" << v_r_m << "\n";
+
+
 
 
 
 			// diffuse element
-			each_light_sum += k_d * ( v_l_m * v_normal ) * i_d;
+			// each_light_sum += k_d * ( v_l_m * v_normal ) * i_d;
 
 			// specular element
-			each_light_sum += k_s * std::pow(v_r_m * v_v, alpha) * i_s;
+
+			if (v_r_m * v_v > 0) {
+				each_light_sum += k_s * std::pow(v_r_m * v_v, alpha) * i_s;
+			}
 		}
 
 		//std::cout << "Phong: " << each_light_sum << "\n";

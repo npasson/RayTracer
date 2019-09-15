@@ -7,9 +7,9 @@
 #include "misc.h"
 
 Color::Color() {
-	this->_red   = 0.5;
-	this->_green = 0.5;
-	this->_blue  = 0.5;
+	this->_red   = 0;
+	this->_green = 0;
+	this->_blue  = 0;
 }
 
 Color::Color(double brightness) {
