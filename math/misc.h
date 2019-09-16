@@ -108,9 +108,13 @@ namespace rt_math {
 		Color each_light_sum;
 		Color ambient;
 
+		std::vector<Color> ambients;
+
 		while (!lights.empty()) {
 			LightSource ls = *( lights.front());
 			lights.pop();
+
+			ambients.push_back(ls.getColor() * ls.getBrightness());
 
 			i_d = p.getBrightnessFromLightSource(ls);
 			i_s = ls.getColor();
@@ -125,19 +129,30 @@ namespace rt_math {
 			//	std::cout << "LightVector:" << v_l_m << "\n";
 			//	std::cout << "RflctVector:" << v_r_m << "\n";
 
+			double diffuse_dot_product = v_l_m * v_normal;
 
+			if (diffuse_dot_product > 0) {
 
+				// diffuse element
+				each_light_sum += k_d * ( diffuse_dot_product ) * i_d;
 
-
-			// diffuse element
-			// each_light_sum += k_d * ( v_l_m * v_normal ) * i_d;
-
-			// specular element
-
-			if (v_r_m * v_v > 0) {
-				each_light_sum += k_s * std::pow(v_r_m * v_v, alpha) * i_s;
+				// specular element
+				double specular_dot_product = v_r_m * v_v;
+				if (specular_dot_product > 0) {
+					each_light_sum += k_s * std::pow(specular_dot_product, alpha) * i_s;
+				}
 			}
 		}
+
+		ambient = Color::combine(ambients);
+
+		// std::cout << "Ambient before: " << ambient << "\n";
+
+		ambient = ambient * k_a;
+
+		// std::cout << "Ambient after:  " << ambient << "\n";
+
+		each_light_sum += ambient;
 
 		//std::cout << "Phong: " << each_light_sum << "\n";
 

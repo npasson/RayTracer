@@ -19,8 +19,8 @@ private:
 
 	Ray3 _position;
 
-	const static uint16_t _xRes = 1000;
-	const static uint16_t _yRes = 1000;
+	const static uint16_t _xRes = 2000;
+	const static uint16_t _yRes = 2000;
 public:
 	uint16_t
 	getXRes() const;

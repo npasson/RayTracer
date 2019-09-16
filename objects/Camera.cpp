@@ -52,13 +52,13 @@ Camera::forEachPixel(Color (* callback)(Ray3,
                                         uint16_t,
                                         uint16_t)) {
 
-	auto image = new byte_t[_yRes][_xRes][Bitmap::BYTES_PER_PIXEL];
+	auto image      = new byte_t[_yRes][_xRes][Bitmap::BYTES_PER_PIXEL];
+	auto image_copy = new double[_yRes][_xRes][Bitmap::BYTES_PER_PIXEL];
 
 	const Vec3& origin = this->_position
 	                         .getOrigin();
 
-	double max = 1;
-	double min = 0;
+	std::vector<double> max_brightnesses;
 
 	for (uint16_t x = 0; x < _xRes; ++x) {
 		for (uint16_t y = 0; y < _yRes; ++y) {
@@ -75,42 +75,44 @@ Camera::forEachPixel(Color (* callback)(Ray3,
 			double blue  = c.getBlue();
 
 			double local_max = std::max({red, green, blue});
-			double local_min = std::min({red, green, blue});
+			//double local_min = std::min({red, green, blue});
 
-			if (local_max > max) {
-				max = local_max;
-			}
+			max_brightnesses.push_back(local_max);
 
-			if (local_min < min) {
-				min = local_min;
-			}
-
-			image[x][y][Bitmap::RED]   = static_cast<uint8_t>(red * 255 );
-			image[x][y][Bitmap::GREEN] = static_cast<uint8_t>(green * 255 );
-			image[x][y][Bitmap::BLUE]  = static_cast<uint8_t>(green * 255 );
+			image_copy[x][y][Bitmap::RED]   = red;
+			image_copy[x][y][Bitmap::GREEN] = green;
+			image_copy[x][y][Bitmap::BLUE]  = blue;
 		}
 	}
+
+	std::sort(max_brightnesses.begin(),
+	          max_brightnesses.end(),
+	          [](double lhs,
+	             double rhs) -> bool { return lhs < rhs; });
+
+	uint32_t ninety_ninth =
+		         ( static_cast<double>(max_brightnesses.size()) / 100 )
+		         * 99;
+
+	double max = max_brightnesses[ninety_ninth];
 
 	for (uint16_t x = 0; x < _xRes; ++x) {
 		for (uint16_t y = 0; y < _yRes; ++y) {
 			image[x][y][Bitmap::RED] = static_cast<uint8_t>(
-				rt_math::clamp(static_cast<double>(
-					               image[x][y][Bitmap::RED]
-				               )
-				               / max - min, 0, 255)
+				255 * rt_math::clamp(
+					image_copy[x][y][Bitmap::RED]
+					/ max, 0, 1)
 			);
 
 			image[x][y][Bitmap::GREEN] = static_cast<uint8_t>(
-				rt_math::clamp(static_cast<double>(
-					               image[x][y][Bitmap::GREEN
-					               ])
-				               / max - min, 0, 255)
+				255 * rt_math::clamp(
+					image_copy[x][y][Bitmap::GREEN]
+					/ max, 0, 1)
 			);
 			image[x][y][Bitmap::BLUE]  = static_cast<uint8_t>(
-				rt_math::clamp(static_cast<double>(
-					               image[x][y][Bitmap::BLUE]
-				               )
-				               / max - min, 0, 255)
+				255 * rt_math::clamp(
+					image_copy[x][y][Bitmap::BLUE]
+					/ max, 0, 1)
 			);
 
 		}
