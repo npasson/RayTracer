@@ -96,23 +96,25 @@ Camera::forEachPixel(Color (* callback)(Ray3,
 
 	double max = max_brightnesses[ninety_ninth];
 
+	double gamma = 0.8;
+
 	for (uint16_t x = 0; x < _xRes; ++x) {
 		for (uint16_t y = 0; y < _yRes; ++y) {
 			image[x][y][Bitmap::RED] = static_cast<uint8_t>(
-				255 * rt_math::clamp(
+				255 * std::pow(rt_math::clamp(
 					image_copy[x][y][Bitmap::RED]
-					/ max, 0, 1)
+					/ max, 0, 1), gamma)
 			);
 
 			image[x][y][Bitmap::GREEN] = static_cast<uint8_t>(
-				255 * rt_math::clamp(
+				255 * std::pow(rt_math::clamp(
 					image_copy[x][y][Bitmap::GREEN]
-					/ max, 0, 1)
+					/ max, 0, 1), gamma)
 			);
 			image[x][y][Bitmap::BLUE]  = static_cast<uint8_t>(
-				255 * rt_math::clamp(
+				255 * std::pow(rt_math::clamp(
 					image_copy[x][y][Bitmap::BLUE]
-					/ max, 0, 1)
+					/ max, 0, 1), gamma)
 			);
 
 		}
