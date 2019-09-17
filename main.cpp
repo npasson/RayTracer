@@ -30,7 +30,7 @@ main() {
 	//  };
 
 	Sphere redSphere{
-		{3, 0, -2},
+		{3, -1, -2},
 		0.8
 	},     blueSphere{
 		{3, 0, 0},

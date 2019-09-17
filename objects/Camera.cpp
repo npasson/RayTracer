@@ -47,6 +47,28 @@ Camera::setFov(double fov) {
 	Camera::_fov = fov;
 }
 
+inline static Color
+adjustColor(Color originalPixel,
+            double max) {
+	//
+	// old gamma function:
+	//
+		__attribute__((unused)) double gamma = 0.8;
+	  return {
+	  	std::pow(rt_math::clamp( originalPixel.getRed()/ max, 0, 1), gamma),
+	  	std::pow(rt_math::clamp( originalPixel.getGreen()/ max, 0, 1), gamma),
+	  	std::pow(rt_math::clamp( originalPixel.getBlue()/ max, 0, 1), gamma),
+	  };
+
+
+
+//	return {
+//		1 - std::exp(originalPixel.getRed()   /max),
+//		1 - std::exp(originalPixel.getGreen() /max),
+//		1 - std::exp(originalPixel.getBlue()  /max),
+//	};
+}
+
 void
 Camera::forEachPixel(Color (* callback)(Ray3,
                                         uint16_t,
@@ -97,25 +119,28 @@ Camera::forEachPixel(Color (* callback)(Ray3,
 
 	double max = max_brightnesses[ninety_ninth];
 
-	double gamma = 0.8;
+	double gamma = 0.4;
 
 	for (uint16_t x = 0; x < _xRes; ++x) {
 		for (uint16_t y = 0; y < _yRes; ++y) {
+
+			Color adjusted = adjustColor(
+				{
+					image_copy[x][y][Bitmap::RED],
+					image_copy[x][y][Bitmap::GREEN],
+					image_copy[x][y][Bitmap::BLUE]
+				}, max
+			);
+
 			image[x][y][Bitmap::RED] = static_cast<uint8_t>(
-				255 * std::pow(rt_math::clamp(
-					image_copy[x][y][Bitmap::RED]
-					/ max, 0, 1), gamma)
+				255 * adjusted.getRed()
 			);
 
 			image[x][y][Bitmap::GREEN] = static_cast<uint8_t>(
-				255 * std::pow(rt_math::clamp(
-					image_copy[x][y][Bitmap::GREEN]
-					/ max, 0, 1), gamma)
+				255 * adjusted.getGreen()
 			);
 			image[x][y][Bitmap::BLUE]  = static_cast<uint8_t>(
-				255 * std::pow(rt_math::clamp(
-					image_copy[x][y][Bitmap::BLUE]
-					/ max, 0, 1), gamma)
+				255 * adjusted.getBlue()
 			);
 
 		}
@@ -244,7 +269,8 @@ Camera::render() {
 
 			double brightness = 0.2 * ( 0.2 - distance );
 
-			lightColor += Color{rt_math::clamp(brightness, 0, 1)};
+			// XXX
+			// lightColor += Color{rt_math::clamp(brightness, 0, 1)};
 
 			// std::cout << brightness << "\n";
 		}
