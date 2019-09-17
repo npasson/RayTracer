@@ -50,7 +50,8 @@ Camera::setFov(double fov) {
 void
 Camera::forEachPixel(Color (* callback)(Ray3,
                                         uint16_t,
-                                        uint16_t)) {
+                                        uint16_t,
+                                        Color)) {
 
 	auto image      = new byte_t[_yRes][_xRes][Bitmap::BYTES_PER_PIXEL];
 	auto image_copy = new double[_yRes][_xRes][Bitmap::BYTES_PER_PIXEL];
@@ -68,7 +69,7 @@ Camera::forEachPixel(Color (* callback)(Ray3,
 				getPixelCoordinate(x, y)
 			};
 
-			Color c = callback(pixelRay, x, y);
+			Color c = callback(pixelRay, x, y, _voidColor);
 
 			double red   = c.getRed();
 			double green = c.getGreen();
@@ -166,7 +167,8 @@ void
 Camera::render() {
 	this->forEachPixel([](Ray3 ray,
 	                      uint16_t x,
-	                      uint16_t y) -> Color {
+	                      uint16_t y,
+	                      Color voidColor) -> Color {
 		//std::cout << ray << std::endl;
 		auto solids = Solid::getSolids();
 
@@ -188,43 +190,77 @@ Camera::render() {
 
 		}
 
+		Color objectColor;
+
 		if (hits.empty()) {
-			return {0, 0, 0};
+			objectColor = voidColor;
+		} else {
+
+			std::sort(hits.begin(),
+			          hits.end(),
+			          [&](std::pair<Solid, Point> lhs,
+			              std::pair<Solid, Point> rhs) -> bool {
+				          return Point(ray.getOrigin()).getDistanceTo(lhs.second)
+				                 < Point(ray.getOrigin()).getDistanceTo(rhs.second);
+			          });
+
+			Point hit_point = hits.front()
+			                      .second;
+			Solid hit_solid = hits.front()
+			                      .first;
+
+			/*
+
+			auto lights = LightSource::getLights();
+
+			std::vector<Color> lighting;
+
+			while (!lights.empty()) {
+				LightSource* ls = lights.front();
+				lights.pop();
+
+				lighting.push_back(p.getBrightnessFromLightSource(*ls));
+			}
+
+			Color combined = Color::combine(lighting);
+
+			return combined;
+			 */
+
+			objectColor = rt_math::phong(hit_point, hit_solid, ray.getDirection());
 		}
-
-		std::sort(hits.begin(),
-		          hits.end(),
-		          [&](std::pair<Solid, Point> lhs,
-		              std::pair<Solid, Point> rhs) -> bool {
-			          return Point(ray.getOrigin()).getDistanceTo(lhs.second)
-			                 < Point(ray.getOrigin()).getDistanceTo(rhs.second);
-		          });
-
-		Point hit_point = hits.front()
-		                      .second;
-		Solid hit_solid = hits.front()
-		                      .first;
-
-		/*
-
 		auto lights = LightSource::getLights();
 
-		std::vector<Color> lighting;
+		Color lightColor;
 
 		while (!lights.empty()) {
 			LightSource* ls = lights.front();
 			lights.pop();
 
-			lighting.push_back(p.getBrightnessFromLightSource(*ls));
+			// get distance of ray to light
+			// brightness function: 2*(0.5 - d)
+
+			double distance = ray.getMinDistanceTo(ls->getPoint());
+
+			double brightness = 0.2 * ( 0.2 - distance );
+
+			lightColor += Color{rt_math::clamp(brightness, 0, 1)};
+
+			// std::cout << brightness << "\n";
 		}
 
-		Color combined = Color::combine(lighting);
-
-		return combined;
-		 */
-
-		return rt_math::phong(hit_point, hit_solid, ray.getDirection());
+		return objectColor + lightColor;
 	});
+}
+
+const Color&
+Camera::getVoidColor() const {
+	return _voidColor;
+}
+
+void
+Camera::setVoidColor(const Color voidColor) {
+	_voidColor = voidColor;
 }
 
 //void

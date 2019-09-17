@@ -116,7 +116,7 @@ namespace rt_math {
 
 			ambients.push_back(ls.getColor() * ls.getBrightness());
 
-			i_d = p.getBrightnessFromLightSource(ls);
+			i_d = Color{ls.getBrightness()}; // p.getBrightnessFromLightSource(ls);
 			i_s = ls.getColor();
 
 			Vec3 lightVector = ls.getVectorTo(p)

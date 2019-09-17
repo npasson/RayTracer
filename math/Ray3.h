@@ -8,9 +8,8 @@
 #include <ostream>
 #include "Vec3.h"
 
-
-
 class Point;
+
 class Solid;
 
 class Ray3 {
@@ -47,6 +46,9 @@ public:
 
 	void
 	setDistance(double distance);
+
+	double
+	getMinDistanceTo(Point);
 
 	Point*
 	getIntersect(const Solid&);

@@ -9,8 +9,10 @@ main() {
 
 	Camera& c = Camera::getInstance();
 
+	c.setVoidColor(Color{0.02});
+
 	LightSource sun{
-		{1, 0.5, 1},
+		{1, 0.5, 0.7},
 		{1, 1, 1},
 		0.1
 	};

@@ -148,6 +148,55 @@ Ray3::getEndPoint() {
 	};
 }
 
+double
+Ray3::getMinDistanceTo(Point p) {
+	Point rayStartPoint = Point(
+		this->_origin
+		    .getX(),
+		this->_origin
+		    .getY(),
+		this->_origin
+		    .getZ()
+	);
+
+	Ray3 hypothenuse = rayStartPoint.getRayTo(p);
+
+	double hypothenuseLength = rayStartPoint.getDistanceTo(p);
+
+	IFDEBUG(std::cout << "Camera ray: " << *this << std::endl;)
+	IFDEBUG(std::cout << "Object ray: " << hypothenuse << std::endl;)
+
+	Vec3 cameraVector = this->getDirection();
+	Vec3 hypVector    = hypothenuse.getDirection();
+
+	IFDEBUG(std::cout << "Camera vector: " << cameraVector << std::endl;)
+	IFDEBUG(std::cout << "Object vector: " << hypVector << std::endl;)
+
+	double angle = cameraVector.angleInDegreesTo(hypVector);
+
+	IFDEBUG(std::cout << "Angle: " << angle << std::endl;)
+
+	//         s
+	//        /|
+	//       / |
+	//    h /  |
+	//     /   | d
+	//    /   _|
+	//   /A__|_|
+	// r    l
+	//
+	// d = sin(A) * h
+	//
+
+	double sine = std::sin(rt_math::deg2rad(angle));
+
+	IFDEBUG(std::cout << "Sine: " << sine << std::endl;)
+
+	double distance = sine * hypothenuseLength;
+
+	return distance;
+}
+
 Point*
 Ray3::getIntersect(const Solid& solid) {
 	if (solid.getType() == SPHERE) {

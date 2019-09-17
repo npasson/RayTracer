@@ -78,7 +78,8 @@ namespace Debug {
 
 			c.forEachPixel([](Ray3 currentRay,
 			                  uint16_t x,
-			                  uint16_t y) -> Color {
+			                  uint16_t y,
+			                  Color) -> Color {
 				//std::cout << "(" << x << "," << y << ") -> " << currentRay << "\n";
 				std::cout << currentRay.getDirection() << "\n";
 

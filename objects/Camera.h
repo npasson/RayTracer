@@ -19,8 +19,18 @@ private:
 
 	Ray3 _position;
 
-	const static uint16_t _xRes = 2000;
-	const static uint16_t _yRes = 2000;
+	Color _voidColor{0,0,0};
+public:
+	const Color&
+	getVoidColor() const;
+
+	void
+	setVoidColor(Color voidColor);
+
+private:
+
+	const static uint16_t _xRes = 1000;
+	const static uint16_t _yRes = 1000;
 public:
 	uint16_t
 	getXRes() const;
@@ -35,7 +45,8 @@ public:
 	void
 	forEachPixel(Color (* callback)(Ray3,
 	                                uint16_t,
-	                                uint16_t));
+	                                uint16_t,
+	                                Color));
 
 	const Ray3&
 	getPosition() const;
