@@ -1,6 +1,8 @@
 //
 // Created by root on 29.05.2019.
 //
+// Bitmap functions taken from: <https://stackoverflow.com/a/47785639>
+//
 
 #include <cstdio>
 #include <cstdint>
